@@ -74,22 +74,26 @@ module YDocker
         case input
         when :ok, :cancel
           return :ok
-        when :stop
+        when :container_stop
           stop_container
-        when :kill
+          update_containers_buttons
+        when :container_kill
           kill_container
-        when :redraw
+          update_containers_buttons
+        when :containers_redraw
           redraw_containers
-        when :changes
+          update_containers_buttons
+        when :container_changes
           ChangesDialog.new(selected_container).run
-        when :commit
+        when :container_commit
           CommitDialog.new(selected_container).run
         when :images
           Yast::UI::ReplaceWidget(:tabContent, images_page)
         when :containers
           Yast::UI::ReplaceWidget(:tabContent, containers_page)
-        when :delete_image
-          delete_image
+          update_containers_buttons
+        when :image_delete
+          image_delete
         when :images_table
           update_images_buttons
         else
@@ -221,8 +225,8 @@ module YDocker
       HSquash(
         VBox(
           Left(PushButton(Id(:pull_image), Opt(:hstretch), _("P&ull"))),
-          Left(PushButton(Id(:run_image), Opt(:hstretch), _("R&un"))),
-          Left(PushButton(Id(:delete_image), Opt(:hstretch), _("&Delete")))
+          Left(PushButton(Id(:image_run), Opt(:hstretch), _("R&un"))),
+          Left(PushButton(Id(:image_delete), Opt(:hstretch), _("&Delete")))
         )
       )
     end
@@ -230,11 +234,11 @@ module YDocker
     def action_buttons_containers
       HSquash(
         VBox(
-          Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
-          Left(PushButton(Id(:changes), Opt(:hstretch), _("&Show Changes"))),
-          Left(PushButton(Id(:stop), Opt(:hstretch), _("&Stop container"))),
-          Left(PushButton(Id(:kill), Opt(:hstretch), _("&Kill container"))),
-          Left(PushButton(Id(:commit), Opt(:hstretch), _("&Commit"))),
+          Left(PushButton(Id(:containers_redraw), Opt(:hstretch), _("Re&fresh"))),
+          Left(PushButton(Id(:container_changes), Opt(:hstretch), _("&Show Changes"))),
+          Left(PushButton(Id(:container_stop), Opt(:hstretch), _("&Stop container"))),
+          Left(PushButton(Id(:container_kill), Opt(:hstretch), _("&Kill container"))),
+          Left(PushButton(Id(:container_commit), Opt(:hstretch), _("&Commit"))),
         )
       )
     end
@@ -249,7 +253,7 @@ module YDocker
       [Docker::Image.get(selected[:id]), selected[:label]]
     end
 
-    def delete_image
+    def image_delete
       image, label = selected_image
       return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
 
@@ -263,8 +267,17 @@ module YDocker
     end
 
     def update_images_buttons
-      Yast::UI.ChangeWidget(:run_image, :Enabled, !Yast::UI.QueryWidget(:images_table, :SelectedItems).empty?)
-      Yast::UI.ChangeWidget(:delete_image, :Enabled, !Yast::UI.QueryWidget(:images_table, :SelectedItems).empty?)
+      is_something_selected = !Yast::UI.QueryWidget(:images_table, :SelectedItems).empty?
+      [:image_run, :image_delete].each do |item|
+        Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
+      end
+    end
+
+    def update_containers_buttons
+      is_something_selected = !Yast::UI.QueryWidget(:containers_table, :SelectedItems).empty?
+      [:container_changes, :container_stop, :container_kill, :container_commit].each do |item|
+        Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
+      end
     end
 
   end
