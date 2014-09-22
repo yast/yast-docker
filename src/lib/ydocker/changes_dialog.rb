@@ -90,6 +90,12 @@ module YDocker
 
     def changes_items
       changes = @container.changes
+      changes.reject do |change|
+        path = change["Path"]
+        changes.any? do |change2|
+          change["Path"] != change2["Path"] && change2["Path"].start_with?(change["Path"])
+        end
+      end
       changes.map do |change|
         Item(
           ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s),
