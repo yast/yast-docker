@@ -153,11 +153,13 @@ module YDocker
     end
 
     def action_buttons
-      VBox(
-        Left(PushButton(Id(:changes), Opt(:hstretch), _("&Show Changes"))),
-        Left(PushButton(Id(:stop), Opt(:hstretch), _("&Stop container"))),
-        Left(PushButton(Id(:kill), Opt(:hstretch), _("&Kill container"))),
-        Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
+      HSquash(
+        VBox(
+          Left(PushButton(Id(:changes), Opt(:hstretch), _("&Show Changes"))),
+          Left(PushButton(Id(:stop), Opt(:hstretch), _("&Stop container"))),
+          Left(PushButton(Id(:kill), Opt(:hstretch), _("&Kill container"))),
+          Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
+        )
       )
     end
 
