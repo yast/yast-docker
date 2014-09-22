@@ -23,13 +23,13 @@ require "ydocker/changes_dialog"
 require "ydocker/commit_dialog"
 
 module YDocker
-  class RunningContainersDialog
+  class MainDialog
     include Yast::UIShortcuts
     include Yast::I18n
 
     def self.run
       Yast.import "UI"
-      Yast.import "Popup"
+      Yast.import "Storage"
 
       dialog = self.new
       dialog.run
@@ -82,6 +82,10 @@ module YDocker
           ChangesDialog.new(select_container).run
         when :commit
           CommitDialog.new(select_container).run
+        when :images
+          Yast::UI::ReplaceWidget(:tabContent, images_page)
+        when :containers
+          Yast::UI::ReplaceWidget(:tabContent, containers_page)
         else
           raise "Unknown action #{input}"
         end
@@ -108,21 +112,53 @@ module YDocker
 
     def dialog_content
       VBox(
-        headings,
-        HBox(
-          containers_table,
-          action_buttons
+        DumbTab(
+          [
+            Item(Id(:images), _("&Images"), true),
+            Item(Id(:containers), _("&Containers"))
+          ],
+          ReplacePoint(Id(:tabContent), images_page)
         ),
         ending_buttons
       )
     end
 
-    def headings
-      Heading(_("Running Docker Containers"))
+    def images_page
+      VBox(
+        Heading(_("Docker Images")),
+        HBox(
+          images_table,
+          action_buttons_images
+        )
+      )
+    end
+
+    def containers_page
+      VBox(
+        Heading(_("Running Docker Containers")),
+        HBox(
+          containers_table,
+          action_buttons_containers
+        )
+      )
     end
 
     def redraw_containers
       Yast::UI.ChangeWidget(:containers_table, :Items, containers_items)
+    end
+
+    def images_table
+      Table(
+        Id(:images_table),
+        Header(
+          _("Repository"),
+          _("Tag"),
+          _("Image ID"),
+          _("Created"),
+          _("Virtual Size")
+        ),
+       images_items
+      )
     end
 
     def containers_table
@@ -155,7 +191,36 @@ module YDocker
       end
     end
 
-    def action_buttons
+    def images_items
+      images = Docker::Image.all
+      ret = []
+      images.map do |image|
+        image.info['RepoTags'].each do |repotag|
+          repository, tag = repotag.split(":", 2)
+          ret << Item(
+            Id(image.id),
+            repository,
+            tag,
+            image.id,
+            DateTime.strptime(image.info["Created"].to_s, "%s").to_s,
+            Yast::Storage.ByteToHumanString(image.info["VirtualSize"])
+          )
+        end
+      end
+      ret
+    end
+
+    def action_buttons_images
+      HSquash(
+        VBox(
+          Left(PushButton(Id(:pull), Opt(:hstretch), _("P&ull"))),
+          Left(PushButton(Id(:run), Opt(:hstretch), _("R&un"))),
+          Left(PushButton(Id(:delete), Opt(:hstretch), _("&Delete")))
+        )
+      )
+    end
+
+    def action_buttons_containers
       HSquash(
         VBox(
           Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
