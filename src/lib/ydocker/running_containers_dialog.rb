@@ -87,10 +87,14 @@ module YDocker
 
     def stop_container
       select_container.stop!
+
+      redraw_containers
     end
 
     def kill_container
       select_container.kill!
+
+      redraw_containers
     end
 
     def dialog_content
