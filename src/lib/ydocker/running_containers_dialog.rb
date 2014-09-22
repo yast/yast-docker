@@ -19,6 +19,8 @@
 require "yast"
 require "docker"
 
+require "ydocker/changes_dialog"
+
 module YDocker
   class RunningContainersDialog
     include Yast::UIShortcuts
@@ -75,6 +77,8 @@ module YDocker
           kill_container
         when :redraw
           redraw_containers
+        when :changes
+          ChangesDialog.new(select_container).run
         else
           raise "Unknown action #{input}"
         end
@@ -153,6 +157,7 @@ module YDocker
         Label(_("Filter channels")),
         InputField(Id(:filter_text), Opt(:notify),""),
         PushButton(Id(:details), _("&Show details")),
+        PushButton(Id(:changes), _("&Show Changes")),
         PushButton(Id(:add), _("&Run new container")),
         PushButton(Id(:stop), _("&Stop container")),
         PushButton(Id(:kill), _("&Kill container")),
