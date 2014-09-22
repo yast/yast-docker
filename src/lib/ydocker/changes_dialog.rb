@@ -82,17 +82,17 @@ module YDocker
       )
     end
 
-    STATUS_MAPPING = {
-      0 => N_("Modified"),
-      1 => N_("Created"),
-      2 => N_("Deleted")
+    STATUS_MAPPING = { # TODO translation
+      0 => ("Modified"),
+      1 => ("Created"),
+      2 => ("Deleted")
     }
 
     def changes_items
       changes = @container.changes
       changes.map do |change|
         Item(
-          _((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s),
+          ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s),
           change["Path"]
         )
       end
