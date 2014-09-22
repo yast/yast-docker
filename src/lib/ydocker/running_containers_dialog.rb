@@ -73,6 +73,8 @@ module YDocker
           stop_container
         when :kill
           kill_container
+        when :redraw
+          redraw_containers
         else
           raise "Unknown action #{input}"
         end
@@ -154,6 +156,7 @@ module YDocker
         PushButton(Id(:add), _("&Run new container")),
         PushButton(Id(:stop), _("&Stop container")),
         PushButton(Id(:kill), _("&Kill container")),
+        PushButton(Id(:redraw), _("Re&fresh")),
       )
     end
 
