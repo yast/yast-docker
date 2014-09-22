@@ -20,6 +20,10 @@ require "yast"
 
 module YDocker
   class ChangesDialog
+    include Yast::UIShortcuts
+    include Yast::I18n
+    extend Yast::I18n
+
     def initialize(container)
       @container = container
     end
@@ -79,16 +83,16 @@ module YDocker
     end
 
     STATUS_MAPPING = {
-      0 => _("Modified"),
-      1 => _("Created"),
-      2 => _("Deleted")
+      0 => N_("Modified"),
+      1 => N_("Created"),
+      2 => N_("Deleted")
     }
 
     def changes_items
       changes = @container.changes
       changes.map do |change|
         Item(
-          STATUS_MAPPING[change["Kind"]] || change["Kind"],
+          _((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s),
           change["Path"]
         )
       end
