@@ -33,7 +33,7 @@ module YDocker
     def initialize
       textdomain "docker"
 
-      read_channels
+      read_containers
     end
 
     def run
@@ -57,12 +57,8 @@ module YDocker
       Yast::UI.CloseDialog
     end
 
-    def read_channels
-      @channels = Channels.allowed
-    end
-
-    def redraw_channels
-      Yast::UI.ChangeWidget(:channels_table, :Items, channels_items)
+    def read_containers
+      @containers = [] # TODO
     end
 
     def controller_loop
@@ -71,48 +67,17 @@ module YDocker
         case input
         when :ok, :cancel
           return :ok
-        when :filter_text
-          redraw_channels
-        when :clear
-          Yast::UI.ChangeWidget(:channels_table, :SelectedItems, [])
-        when :select_all
-          Yast::UI.ChangeWidget(:channels_table, :SelectedItems, prefiltered_channels.map(&:device))
-        when :block
-          block_channels
-          read_channels
-          redraw_channels
-        when :unban
-          devices = UnbanDialog.run
-          Yast.y2milestone("Going to unblock devices #{devices.inspect}")
-          next unless devices
-
-          unban_channels devices
-          read_channels
-          redraw_channels
-        else
+            else
           raise "Unknown action #{input}"
         end
       end
-    end
-
-    def block_channels
-      devices = Yast::UI.QueryWidget(:channels_table, :SelectedItems)
-      channels = Channels.new(devices.map {|d| Channel.new(d) })
-
-      Yast.y2milestone("Going to unblock channels #{channels.inspect}")
-      channels.block
-    end
-
-    def unban_channels devices
-      channels = Channels.new(devices.map{ |c| Channel.new c })
-      channels.unblock
     end
 
     def dialog_content
       VBox(
         headings,
         HBox(
-          channels_table,
+          containers_table,
           action_buttons
         ),
         ending_buttons
@@ -120,36 +85,25 @@ module YDocker
     end
 
     def headings
-      Heading(_("Available Input/Output Channels"))
+      Heading(_("Running Docker Containers"))
     end
 
-    def channels_table
+    def containers_table
       Table(
-        Id(:channels_table),
-        Opt(:multiSelection),
-        Header(_("Device"), _("Used")),
-        channels_items
+        Id(:containers_table),
+        Header(_("Container"), _("Status")),
+        containers_items
       )
     end
 
-    def channels_items
-      prefiltered_channels.map do |channel|
+    def containers_items
+      fake_data = [["test container", true], ["test2 container", false]] # TODO
+      fake_data.map do |container|
         Item(
-          Id(channel.device),
-          channel.device,
-          channel.used? ? _("yes") : _("no")
+          Id(container.first),
+          container.first,
+          container[1] ? _("Running") : _("Dead")
         )
-      end
-    end
-
-    def prefiltered_channels
-      filter = Yast::UI.QueryWidget(:filter_text, :Value)
-
-      # filter can be empty if dialog is not yet created
-      return @channels if !filter || filter.empty?
-
-      @channels.select do |channel|
-        channel.device.include? filter
       end
     end
 
@@ -157,10 +111,8 @@ module YDocker
       VBox(
         Label(_("Filter channels")),
         InputField(Id(:filter_text), Opt(:notify),""),
-        PushButton(Id(:select_all), _("&Select All")),
-        PushButton(Id(:clear), _("&Clear selection")),
-        PushButton(Id(:block), _("&Blacklist Selected Channels")),
-        PushButton(Id(:unban), _("&Unban Channels")),
+        PushButton(Id(:details), _("&Show details")),
+        PushButton(Id(:add), _("&Run new container")),
       )
     end
 
