@@ -83,6 +83,9 @@ module YDocker
         when :containers_redraw
           redraw_containers
           update_containers_buttons
+        when :images_redraw
+          redraw_images
+          update_images_buttons
         when :container_changes
           ChangesDialog.new(selected_container).run
         when :container_commit
@@ -109,12 +112,14 @@ module YDocker
     end
 
     def stop_container
+      return unless (Yast::Popup.YesNo(_("Do you really want to stop the running container?")))
       selected_container.stop!
 
       redraw_containers
     end
 
     def kill_container
+      return unless (Yast::Popup.YesNo(_("Do you really want to kill the running container?")))
       selected_container.kill!
 
       redraw_containers
@@ -155,6 +160,10 @@ module YDocker
 
     def redraw_containers
       Yast::UI.ChangeWidget(:containers_table, :Items, containers_items)
+    end
+
+    def redraw_images
+      Yast::UI.ChangeWidget(:images_table, :Items, images_items)
     end
 
     def images_table
@@ -224,6 +233,7 @@ module YDocker
     def action_buttons_images
       HSquash(
         VBox(
+          Left(PushButton(Id(:images_redraw), Opt(:hstretch), _("Re&fresh"))),
           Left(PushButton(Id(:pull_image), Opt(:hstretch), _("P&ull"))),
           Left(PushButton(Id(:image_run), Opt(:hstretch), _("R&un"))),
           Left(PushButton(Id(:image_delete), Opt(:hstretch), _("&Delete")))
