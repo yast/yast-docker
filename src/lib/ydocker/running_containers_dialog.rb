@@ -112,7 +112,7 @@ module YDocker
           container.id,
           container.info["Image"],
           container.info["Command"],
-          DateTime.strptime(container.info["Created"].to_i, "%s").to_s,
+          DateTime.strptime(container.info["Created"].to_s, "%s").to_s,
           container.info["Status"],
           container.info["Ports"].map {|p| "#{p["IP"]}:#{p["PublicPort"]}->#{p["PrivatePort"]}/#{p["Type"]}" }.join(",")
         )
