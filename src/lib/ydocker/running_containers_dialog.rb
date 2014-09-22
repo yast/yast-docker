@@ -26,6 +26,7 @@ module YDocker
 
     def self.run
       Yast.import "UI"
+      Yast.import "Popup"
 
       dialog = self.new
       dialog.run
@@ -68,10 +69,28 @@ module YDocker
         case input
         when :ok, :cancel
           return :ok
-            else
+        when :stop
+          stop_container
+        when :kill
+          kill_container
+        else
           raise "Unknown action #{input}"
         end
       end
+    end
+
+    def select_container
+      selected = Yast::UI.QueryWidget(:containers_table, :SelectedItems)
+      selected = selected.first if selected.is_a? Array
+      Docker::Container.get(selected)
+    end
+
+    def stop_container
+      select_container.stop!
+    end
+
+    def kill_container
+      select_container.kill!
     end
 
     def dialog_content
@@ -125,6 +144,8 @@ module YDocker
         InputField(Id(:filter_text), Opt(:notify),""),
         PushButton(Id(:details), _("&Show details")),
         PushButton(Id(:add), _("&Run new container")),
+        PushButton(Id(:stop), _("&Stop container")),
+        PushButton(Id(:kill), _("&Kill container")),
       )
     end
 
