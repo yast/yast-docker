@@ -108,6 +108,10 @@ module YDocker
       Heading(_("Running Docker Containers"))
     end
 
+    def redraw_containers
+      Yast::UI.ChangeWidget(:containers_table, :Items, containers_items)
+    end
+
     def containers_table
       Table(
         Id(:containers_table),
