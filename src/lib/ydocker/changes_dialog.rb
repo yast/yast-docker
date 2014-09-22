@@ -75,8 +75,8 @@ module YDocker
       Table(
         Id(:changes_table),
         Header(
-          _("Status"),
-          _("Path")
+          _("Path"),
+          _("Status")
         ),
         changes_items
       )
@@ -96,10 +96,11 @@ module YDocker
           change["Path"] != change2["Path"] && change2["Path"].start_with?(change["Path"])
         end
       end
+      changes.sort_by! { |c| c["Path"] }
       changes.map do |change|
         Item(
-          ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s),
-          change["Path"]
+          change["Path"],
+          ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s)
         )
       end
     end
