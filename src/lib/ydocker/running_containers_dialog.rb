@@ -18,7 +18,7 @@
 
 require "yast"
 
-module IOChannel
+module YDocker
   class RunningContainersDialog
     include Yast::UIShortcuts
     include Yast::I18n
