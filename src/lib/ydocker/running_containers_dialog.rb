@@ -154,14 +154,10 @@ module YDocker
 
     def action_buttons
       VBox(
-        Label(_("Filter channels")),
-        InputField(Id(:filter_text), Opt(:notify),""),
-        PushButton(Id(:details), _("&Show details")),
-        PushButton(Id(:changes), _("&Show Changes")),
-        PushButton(Id(:add), _("&Run new container")),
-        PushButton(Id(:stop), _("&Stop container")),
-        PushButton(Id(:kill), _("&Kill container")),
-        PushButton(Id(:redraw), _("Re&fresh")),
+        Left(HStrech(PushButton(Id(:changes), _("&Show Changes")))),
+        Left(HStrech(PushButton(Id(:stop), _("&Stop container")))),
+        Left(HStrech(PushButton(Id(:kill), _("&Kill container")))),
+        Left(HStrech(PushButton(Id(:redraw), _("Re&fresh")))),
       )
     end
 
