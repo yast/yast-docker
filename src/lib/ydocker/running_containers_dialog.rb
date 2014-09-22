@@ -17,6 +17,7 @@
 #  you may find current contact information at www.suse.com
 
 require "yast"
+require "docker"
 
 module YDocker
   class RunningContainersDialog
@@ -91,18 +92,29 @@ module YDocker
     def containers_table
       Table(
         Id(:containers_table),
-        Header(_("Container"), _("Status")),
+        Header(
+          _("Container ID"),
+          _("Image"),
+          _("Command"),
+          _("Created"),
+          _("Status"),
+          _("Ports")
+        ),
         containers_items
       )
     end
 
     def containers_items
-      fake_data = [["test container", true], ["test2 container", false]] # TODO
-      fake_data.map do |container|
+      containers = Docker::Container.all
+      containers.map do |container|
         Item(
-          Id(container.first),
-          container.first,
-          container[1] ? _("Running") : _("Dead")
+          Id(container.id),
+          container.id,
+          container.info["Image"],
+          container.info["Command"],
+          DateTime.strptime(container.info["Created"], "%s").to_s,
+          container.info["Status"],
+          container.info["Ports"].join(",")
         )
       end
     end
