@@ -90,7 +90,7 @@ module YDocker
 
     def changes_items
       changes = @container.changes
-      changes.reject do |change|
+      changes.reject! do |change|
         path = change["Path"]
         changes.any? do |change2|
           change["Path"] != change2["Path"] && change2["Path"].start_with?(change["Path"])
