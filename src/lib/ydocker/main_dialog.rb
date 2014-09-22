@@ -29,6 +29,7 @@ module YDocker
 
     def self.run
       Yast.import "UI"
+      Yast.import "Popup"
       Yast.import "Storage"
 
       dialog = self.new
@@ -56,6 +57,7 @@ module YDocker
 
     def create_dialog
       Yast::UI.OpenDialog DEFAULT_SIZE_OPT, dialog_content
+      update_images_buttons
     end
 
     def close_dialog
@@ -79,33 +81,37 @@ module YDocker
         when :redraw
           redraw_containers
         when :changes
-          ChangesDialog.new(select_container).run
+          ChangesDialog.new(selected_container).run
         when :commit
-          CommitDialog.new(select_container).run
+          CommitDialog.new(selected_container).run
         when :images
           Yast::UI::ReplaceWidget(:tabContent, images_page)
         when :containers
           Yast::UI::ReplaceWidget(:tabContent, containers_page)
+        when :delete_image
+          delete_image
+        when :images_table
+          update_images_buttons
         else
           raise "Unknown action #{input}"
         end
       end
     end
 
-    def select_container
+    def selected_container
       selected = Yast::UI.QueryWidget(:containers_table, :SelectedItems)
       selected = selected.first if selected.is_a? Array
       Docker::Container.get(selected)
     end
 
     def stop_container
-      select_container.stop!
+      selected_container.stop!
 
       redraw_containers
     end
 
     def kill_container
-      select_container.kill!
+      selected_container.kill!
 
       redraw_containers
     end
@@ -150,6 +156,7 @@ module YDocker
     def images_table
       Table(
         Id(:images_table),
+        Opt(:notify),
         Header(
           _("Repository"),
           _("Tag"),
@@ -198,7 +205,7 @@ module YDocker
         image.info['RepoTags'].each do |repotag|
           repository, tag = repotag.split(":", 2)
           ret << Item(
-            Id(image.id),
+            Id({:id => image.id, :label => repotag}),
             repository,
             tag,
             image.id,
@@ -213,9 +220,9 @@ module YDocker
     def action_buttons_images
       HSquash(
         VBox(
-          Left(PushButton(Id(:pull), Opt(:hstretch), _("P&ull"))),
-          Left(PushButton(Id(:run), Opt(:hstretch), _("R&un"))),
-          Left(PushButton(Id(:delete), Opt(:hstretch), _("&Delete")))
+          Left(PushButton(Id(:pull_image), Opt(:hstretch), _("P&ull"))),
+          Left(PushButton(Id(:run_image), Opt(:hstretch), _("R&un"))),
+          Left(PushButton(Id(:delete_image), Opt(:hstretch), _("&Delete")))
         )
       )
     end
@@ -235,5 +242,30 @@ module YDocker
     def ending_buttons
       PushButton(Id(:ok), _("&Exit"))
     end
+
+    def selected_image
+      selected = Yast::UI.QueryWidget(:images_table, :SelectedItems)
+      selected = selected.first if selected.is_a? Array
+      [Docker::Image.get(selected[:id]), selected[:label]]
+    end
+
+    def delete_image
+      image, label = selected_image
+      return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
+
+      image.remove
+      redraw_images
+      update_images_buttons
+    end
+
+    def redraw_images
+      Yast::UI.ChangeWidget(:images_table, :Items, images_items)
+    end
+
+    def update_images_buttons
+      Yast::UI.ChangeWidget(:run_image, :Enabled, !Yast::UI.QueryWidget(:images_table, :SelectedItems).empty?)
+      Yast::UI.ChangeWidget(:delete_image, :Enabled, !Yast::UI.QueryWidget(:images_table, :SelectedItems).empty?)
+    end
+
   end
 end
