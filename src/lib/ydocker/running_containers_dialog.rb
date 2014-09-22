@@ -20,6 +20,7 @@ require "yast"
 require "docker"
 
 require "ydocker/changes_dialog"
+require "ydocker/commit_dialog"
 
 module YDocker
   class RunningContainersDialog
@@ -79,6 +80,8 @@ module YDocker
           redraw_containers
         when :changes
           ChangesDialog.new(select_container).run
+        when :commit
+          CommitDialog.new(select_container).run
         else
           raise "Unknown action #{input}"
         end
@@ -155,10 +158,11 @@ module YDocker
     def action_buttons
       HSquash(
         VBox(
+          Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
           Left(PushButton(Id(:changes), Opt(:hstretch), _("&Show Changes"))),
           Left(PushButton(Id(:stop), Opt(:hstretch), _("&Stop container"))),
           Left(PushButton(Id(:kill), Opt(:hstretch), _("&Kill container"))),
-          Left(PushButton(Id(:redraw), Opt(:hstretch), _("Re&fresh"))),
+          Left(PushButton(Id(:commit), Opt(:hstretch), _("&Commit"))),
         )
       )
     end
