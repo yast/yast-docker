@@ -33,6 +33,7 @@ module YDocker
       Yast.import "UI"
       Yast.import "Popup"
       Yast.import "Storage"
+      Yast.import "Service"
 
       dialog = self.new
       dialog.run
@@ -45,6 +46,7 @@ module YDocker
     end
 
     def run
+
       return unless create_dialog
 
       begin
@@ -58,9 +60,25 @@ module YDocker
     DEFAULT_SIZE_OPT = Yast::Term.new(:opt, :defaultsize)
 
     def create_dialog
+      return unless ensure_docker_run
+
       Yast::UI.OpenDialog DEFAULT_SIZE_OPT, dialog_content
       update_images_buttons
       @current_tab = :images
+    end
+
+    def ensure_docker_run
+      return true if Yast::Service.active?("docker")
+
+      # Only root can start process
+      if Process::UID.rid == 0
+        return false unless Yast::Popup.YesNo(_("Docker service does not run. Should YaST start docker? Otherwise YaST quits."))
+
+        return Yast::Service.start("docker")
+      else
+        Yast::Popup.Error(_("Docker service does not run. Run this module as root or start docker service manually."))
+        return false
+      end
     end
 
     def close_dialog
