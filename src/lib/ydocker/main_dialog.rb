@@ -239,7 +239,6 @@ module YDocker
       HSquash(
         VBox(
           Left(PushButton(Id(:images_redraw), Opt(:hstretch), _("Re&fresh"))),
-          Left(PushButton(Id(:pull_image), Opt(:hstretch), _("P&ull"))),
           Left(PushButton(Id(:image_run), Opt(:hstretch), _("R&un"))),
           Left(PushButton(Id(:image_delete), Opt(:hstretch), _("&Delete")))
         )
