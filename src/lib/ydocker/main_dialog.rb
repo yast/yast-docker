@@ -27,6 +27,7 @@ module YDocker
   class MainDialog
     include Yast::UIShortcuts
     include Yast::I18n
+    include Yast::Logger
 
     def self.run
       Yast.import "UI"
@@ -86,7 +87,6 @@ module YDocker
           update_containers_buttons
         when :images_redraw
           redraw_images
-          update_images_buttons
         when :container_changes
           ChangesDialog.new(selected_container).run
         when :container_commit
@@ -101,7 +101,14 @@ module YDocker
         when :images_table
           update_images_buttons
         when :image_run
-          RunImageDialog.new(selected_image[0]).run
+          begin
+            RunImageDialog.new(selected_image[0]).run
+          rescue Docker::Error::DockerError => e
+            log.errror "Docker exception #{e.inspect}"
+            Yast::Popup.Error _("Failed to find selected image. Automatic refreshing image selection. Please try again.")
+            redraw_images
+            return
+          end
         else
           raise "Unknown action #{input}"
         end
@@ -169,6 +176,7 @@ module YDocker
 
     def redraw_images
       Yast::UI.ChangeWidget(:images_table, :Items, images_items)
+      update_images_buttons
     end
 
     def images_table
@@ -268,16 +276,18 @@ module YDocker
     end
 
     def image_delete
-      image, label = selected_image
+      begin
+        image, label = selected_image
+      rescue Docker::Error::DockerError => e
+        log.errror "Docker exception #{e.inspect}"
+        Yast::Popup.Error _("Failed to find selected image. Automatic refreshing image selection. Please try again.")
+        redraw_images
+        return
+      end
       return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
 
       image.remove
       redraw_images
-      update_images_buttons
-    end
-
-    def redraw_images
-      Yast::UI.ChangeWidget(:images_table, :Items, images_items)
     end
 
     def update_images_buttons
