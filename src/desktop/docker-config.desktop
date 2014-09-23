@@ -15,7 +15,7 @@ X-SuSE-YaST-SortKey=
 X-SuSE-YaST-AutoinstResource=
 
 Icon=yast-vm-install
-Exec=/usr/bin/xdg-su -c "/sbin/yast2 docker"
+Exec=/sbin/yast2 docker
 
 Name=Docker
 GenericName=Docker
