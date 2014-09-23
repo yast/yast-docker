@@ -22,6 +22,7 @@ require "docker"
 require "ydocker/changes_dialog"
 require "ydocker/commit_dialog"
 require "ydocker/run_image_dialog"
+require "ydocker/attach_dialog"
 
 module YDocker
   class MainDialog
@@ -104,6 +105,8 @@ module YDocker
             redraw_containers
           when :images_redraw
             redraw_images
+          when :container_attach
+            AttachDialog.new(selected_container).run
           when :container_changes
             ChangesDialog.new(selected_container).run
           when :container_commit
@@ -281,6 +284,7 @@ module YDocker
         VBox(
           action_button(:containers_redraw, _("Re&fresh")),
           action_button(:container_changes, _("S&how Changes")),
+          action_button(:container_attach, _("Attach to &Terminal")),
           action_button(:container_stop, _("&Stop Container")),
           action_button(:container_kill, _("&Kill Container")),
           action_button(:container_commit, _("&Commit"))
