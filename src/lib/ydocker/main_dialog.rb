@@ -21,6 +21,7 @@ require "docker"
 
 require "ydocker/changes_dialog"
 require "ydocker/commit_dialog"
+require "ydocker/run_image_dialog"
 
 module YDocker
   class MainDialog
@@ -99,6 +100,8 @@ module YDocker
           image_delete
         when :images_table
           update_images_buttons
+        when :image_run
+          RunImageDialog.new(selected_image[0]).run
         else
           raise "Unknown action #{input}"
         end
