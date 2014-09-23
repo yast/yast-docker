@@ -67,6 +67,6 @@ rake install DESTDIR="%{buildroot}"
 %defattr(-,root,root)
 %{yast_dir}/clients/*.rb
 %{yast_dir}/lib/ydocker
-%{yast_desktopdir}/docker.desktop
+%{yast_desktopdir}/docker-config.desktop
 
 %doc COPYING
