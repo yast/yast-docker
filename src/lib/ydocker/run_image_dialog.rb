@@ -86,55 +86,37 @@ module YDocker
       Heading(_("Run Container"))
     end
 
+    def frame_table_with_buttons(headings, id, button_suffix)
+      Frame(
+        headings,
+        VBox(
+          Table(
+            Id(id),
+            Header(
+              _("Host"),
+              _("Container")
+            ),
+            []
+          ),
+          HBox(
+            PushButton(
+              Id("add_#{button_suffix}".to_sym),
+              _("Add")
+            ),
+            PushButton(
+              Id("remove_#{button_suffix}".to_sym),
+              _("Remove")
+            )
+          )
+        )
+      )
+    end
+
 
     def contents
       VBox(
-        Frame(
-          _("Volumes"),
-          VBox(
-            Table(
-              Id(:volumes_table),
-              Header(
-                _("Host"),
-                _("Container")
-              ),
-              []
-            ),
-            HBox(
-              PushButton(
-                Id(:add_volume),
-                _("Add")
-              ),
-              PushButton(
-                Id(:remove_volume),
-                _("Remove")
-              )
-            )
-          )
-        ),
-        Frame(
-          _("Ports"),
-          VBox(
-            Table(
-              Id(:ports_table),
-              Header(
-                _("Host"),
-                _("Container")
-              ),
-              []
-            ),
-            HBox(
-              PushButton(
-                Id(:add_port),
-                _("Add")
-              ),
-              PushButton(
-                Id(:remove_port),
-                _("Remove")
-              )
-            )
-          )
-        ),
+        frame_table_with_buttons(_("Volumes"), :volumes_table, "volume"),
+        frame_table_with_buttons(_("Ports"), :ports_table, "port"),
         InputField(
           Id(:run_cmd),
           _("Command")
