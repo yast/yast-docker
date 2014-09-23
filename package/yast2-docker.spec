@@ -36,6 +36,7 @@ Requires:       yast2-ruby-bindings >= 1.2.0
 Requires:       rubygem(docker-api)
 
 BuildRequires:  update-desktop-files
+BuildRequires:  yast2-devtools
 BuildRequires:  yast2-ruby-bindings >= 1.2.0
 BuildRequires:  yast2 >= 3.0.5
 #for install task
