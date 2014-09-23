@@ -206,7 +206,7 @@ module YDocker
       containers.map do |container|
         Item(
           Id(container.id),
-          container.id,
+          container.id.slice(0,12),
           container.info["Image"],
           container.info["Command"],
           DateTime.strptime(container.info["Created"].to_s, "%s").to_s,
@@ -226,7 +226,7 @@ module YDocker
             Id({:id => image.id, :label => repotag}),
             repository,
             tag,
-            image.id,
+            image.id.slice(0, 12),
             DateTime.strptime(image.info["Created"].to_s, "%s").to_s,
             Yast::Storage.ByteToHumanString(image.info["VirtualSize"])
           )
