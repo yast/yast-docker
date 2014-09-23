@@ -60,6 +60,7 @@ module YDocker
     def create_dialog
       Yast::UI.OpenDialog DEFAULT_SIZE_OPT, dialog_content
       update_images_buttons
+      @current_tab = :images
     end
 
     def close_dialog
@@ -73,44 +74,43 @@ module YDocker
     def controller_loop
       while true do
         input = Yast::UI.UserInput
-        case input
-        when :ok, :cancel
-          return :ok
-        when :container_stop
-          stop_container
-          update_containers_buttons
-        when :container_kill
-          kill_container
-          update_containers_buttons
-        when :containers_redraw
-          redraw_containers
-          update_containers_buttons
-        when :images_redraw
-          redraw_images
-        when :container_changes
-          ChangesDialog.new(selected_container).run
-        when :container_commit
-          CommitDialog.new(selected_container).run
-        when :images
-          Yast::UI::ReplaceWidget(:tabContent, images_page)
-        when :containers
-          Yast::UI::ReplaceWidget(:tabContent, containers_page)
-          update_containers_buttons
-        when :image_delete
-          image_delete
-        when :images_table
-          update_images_buttons
-        when :image_run
-          begin
-            RunImageDialog.new(selected_image[0]).run
-          rescue Docker::Error::DockerError => e
-            log.errror "Docker exception #{e.inspect}"
-            Yast::Popup.Error _("Failed to find selected image. Automatic refreshing image selection. Please try again.")
+        begin
+          case input
+          when :ok, :cancel
+            return :ok
+          when :container_stop
+            stop_container
+          when :container_kill
+            kill_container
+          when :containers_redraw
+            redraw_containers
+          when :images_redraw
             redraw_images
-            return
+          when :container_changes
+            ChangesDialog.new(selected_container).run
+          when :container_commit
+            CommitDialog.new(selected_container).run
+          when :images
+            Yast::UI::ReplaceWidget(:tabContent, images_page)
+            update_images_buttons
+            @current_tab = :images
+          when :containers
+            Yast::UI::ReplaceWidget(:tabContent, containers_page)
+            update_containers_buttons
+            @current_tab = :containers
+          when :image_delete
+            image_delete
+          when :images_table
+            update_images_buttons
+          when :image_run
+            RunImageDialog.new(selected_image[0]).run
+          else
+            raise "Unknown action #{input}"
           end
-        else
-          raise "Unknown action #{input}"
+        rescue Docker::Error::DockerError => e
+          log.errror "Docker exception #{e.inspect}"
+          Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
+          @current_tab == :images ? redraw_images : redraw_containers
         end
       end
     end
@@ -172,6 +172,7 @@ module YDocker
 
     def redraw_containers
       Yast::UI.ChangeWidget(:containers_table, :Items, containers_items)
+      update_containers_buttons
     end
 
     def redraw_images
@@ -280,14 +281,7 @@ module YDocker
     end
 
     def image_delete
-      begin
-        image, label = selected_image
-      rescue Docker::Error::DockerError => e
-        log.errror "Docker exception #{e.inspect}"
-        Yast::Popup.Error _("Failed to find selected image. Automatic refreshing image selection. Please try again.")
-        redraw_images
-        return
-      end
+      image, label = selected_image
       return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
 
       image.remove
