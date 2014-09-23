@@ -33,6 +33,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 Requires:       yast2 >= 3.1.0
 Requires:       yast2-ruby-bindings >= 1.2.0
+Requires:       rubygem(docker-api)
 
 BuildRequires:  update-desktop-files
 BuildRequires:  yast2-ruby-bindings >= 1.2.0
@@ -41,6 +42,8 @@ BuildRequires:  yast2 >= 3.0.5
 BuildRequires:  rubygem(yast-rake)
 # for tests
 BuildRequires:  rubygem(rspec)
+# for docker api
+BuildRequires:  rubygem(docker-api)
 
 Summary:        YaST2 - GUI for docker management
 Group:          System/YaST
@@ -62,7 +65,7 @@ rake install DESTDIR="%{buildroot}"
 %files
 %defattr(-,root,root)
 %{yast_dir}/clients/*.rb
-%{yast_dir}/lib/docker
+%{yast_dir}/lib/ydocker
 %{yast_desktopdir}/docker.desktop
 
 %doc COPYING
