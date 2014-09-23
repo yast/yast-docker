@@ -108,7 +108,7 @@ module YDocker
             raise "Unknown action #{input}"
           end
         rescue Docker::Error::DockerError => e
-          log.errror "Docker exception #{e.inspect}"
+          log.error "Docker exception #{e.inspect}"
           Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
           @current_tab == :images ? redraw_images : redraw_containers
         end
