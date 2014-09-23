@@ -243,12 +243,16 @@ module YDocker
       ret
     end
 
+    def action_button(id, title)
+      Left(PushButton(Id(id), Opt(:hstretch), title))
+    end
+
     def action_buttons_images
       HSquash(
         VBox(
-          Left(PushButton(Id(:images_redraw), Opt(:hstretch), _("Re&fresh"))),
-          Left(PushButton(Id(:image_run), Opt(:hstretch), _("R&un"))),
-          Left(PushButton(Id(:image_delete), Opt(:hstretch), _("&Delete")))
+          action_button(:images_redraw, _("Re&fresh")),
+          action_button(:image_run, _("R&un")),
+          action_button(:image_delete, _("&Delete"))
         )
       )
     end
@@ -256,11 +260,11 @@ module YDocker
     def action_buttons_containers
       HSquash(
         VBox(
-          Left(PushButton(Id(:containers_redraw), Opt(:hstretch), _("Re&fresh"))),
-          Left(PushButton(Id(:container_changes), Opt(:hstretch), _("&Show Changes"))),
-          Left(PushButton(Id(:container_stop), Opt(:hstretch), _("&Stop container"))),
-          Left(PushButton(Id(:container_kill), Opt(:hstretch), _("&Kill container"))),
-          Left(PushButton(Id(:container_commit), Opt(:hstretch), _("&Commit"))),
+          action_button(:containers_redraw, _("Re&fresh")),
+          action_button(:containers_changes, _("S&how Changes")),
+          action_button(:containers_stop, _("&Stop Container")),
+          action_button(:containers_kill, _("&Kill Container")),
+          action_button(:containers_commit, _("&Commit"))
         )
       )
     end
