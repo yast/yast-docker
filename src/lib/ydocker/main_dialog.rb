@@ -117,6 +117,7 @@ module YDocker
     def stop_container
       return unless (Yast::Popup.YesNo(_("Do you really want to stop the running container?")))
       selected_container.stop!
+      selected_container.delete
 
       redraw_containers
     end
@@ -124,6 +125,7 @@ module YDocker
     def kill_container
       return unless (Yast::Popup.YesNo(_("Do you really want to kill the running container?")))
       selected_container.kill!
+      selected_container.delete
 
       redraw_containers
     end
