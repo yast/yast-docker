@@ -45,6 +45,7 @@ module YDocker
 
     def create_dialog
       Yast::UI.OpenDialog dialog_content
+      update_ok_button
     end
 
     def close_dialog
@@ -66,7 +67,9 @@ module YDocker
           remove_volume
         when :add_port
           add_port
-        when :remove_port
+        when :run_cmd
+          update_ok_button
+         when :remove_port
           remove_port
         else
           raise "Unknown action #{input}"
@@ -119,6 +122,7 @@ module YDocker
         frame_table_with_buttons(_("Ports"), :ports_table, "port"),
         InputField(
           Id(:run_cmd),
+          Opt(:notify),
           _("Command")
         )
       )
@@ -238,6 +242,11 @@ module YDocker
         end
 
         container.start!(options)
+    end
+
+    def update_ok_button
+      command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
+      Yast::UI.ChangeWidget(:ok, :Enabled, !command.empty?)
     end
 
   end
