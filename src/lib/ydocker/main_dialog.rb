@@ -325,7 +325,7 @@ module YDocker
 
     def update_containers_buttons
       is_something_selected = !Yast::UI.QueryWidget(:containers_table, :SelectedItems).empty?
-      [:container_changes, :container_stop, :container_kill, :container_commit].each do |item|
+      [:container_attach, :container_changes, :container_stop, :container_kill, :container_commit].each do |item|
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
     end
