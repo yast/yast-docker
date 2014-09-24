@@ -42,8 +42,6 @@ module YDocker
 
     def initialize
       textdomain "docker"
-
-      read_containers
     end
 
     def run
@@ -86,14 +84,10 @@ module YDocker
       Yast::UI.CloseDialog
     end
 
-    def read_containers
-      @containers = [] # TODO
-    end
-
     def controller_loop
       while true do
         input = Yast::UI.UserInput
-        begin
+        handle_docker_exceptions do
           case input
           when :ok, :cancel
             return :ok
@@ -128,12 +122,16 @@ module YDocker
           else
             raise "Unknown action #{input}"
           end
-        rescue Docker::Error::DockerError => e
-          log.error "Docker exception #{e.inspect}"
-          Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
-          @current_tab == :images ? redraw_images : redraw_containers
         end
       end
+    end
+
+    def handle_docker_exceptions(&block)
+      yield
+    rescue Docker::Error::DockerError => e
+      log.error "Docker exception #{e.inspect}"
+      Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
+      @current_tab == :images ? redraw_images : redraw_containers
     end
 
     def selected_container
