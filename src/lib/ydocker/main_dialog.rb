@@ -312,7 +312,7 @@ module YDocker
       image, label = selected_image
       return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
 
-      image.remove
+      image.connection.delete("/images/#{label}", {})
       redraw_images
     end
 
