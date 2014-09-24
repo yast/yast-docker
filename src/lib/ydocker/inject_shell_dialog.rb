@@ -20,7 +20,7 @@ require "yast"
 require "shellwords"
 
 module YDocker
-  class AttachDialog
+  class InjectShellDialog
     include Yast::UIShortcuts
     include Yast::I18n
     extend Yast::I18n
@@ -71,7 +71,7 @@ module YDocker
     end
 
     def headings
-      Heading(_("Attach to Shell"))
+      Heading(_("Inject Shell"))
     end
 
 
