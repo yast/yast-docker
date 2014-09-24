@@ -106,13 +106,9 @@ module YDocker
           when :container_commit
             CommitDialog.new(selected_container).run
           when :images
-            Yast::UI::ReplaceWidget(:tabContent, images_page)
-            update_images_buttons
-            @current_tab = :images
+            switch_to_images
           when :containers
-            Yast::UI::ReplaceWidget(:tabContent, containers_page)
-            update_containers_buttons
-            @current_tab = :containers
+            switch_to_containers
           when :image_delete
             image_delete
           when :images_table
@@ -124,6 +120,18 @@ module YDocker
           end
         end
       end
+    end
+
+    def switch_to_images
+      Yast::UI::ReplaceWidget(:tabContent, images_page)
+      update_images_buttons
+      @current_tab = :images
+    end
+
+    def switch_to_containers
+      Yast::UI::ReplaceWidget(:tabContent, containers_page)
+      update_containers_buttons
+      @current_tab = :containers
     end
 
     def handle_docker_exceptions(&block)
