@@ -39,7 +39,7 @@ The run dialog allows to specify the following options:
     Details about this Docker feature can be found inside of the [official documentation](https://docs.docker.com/installation/mac/#container-port-redirection).
 
 <p align="center">
-  <img src="doc/run_container.png" alt="Docker Images Tab">
+  <img src="doc/run_container.png" alt="Start a Docker container">
 </p>
 
 
@@ -51,6 +51,15 @@ This section of the module lists all the Docker containers running on the system
   <img src="doc/containers_tab.png" alt="Docker Container Tab">
 </p>
 
+## List changes made to the container
+
+It is possible to list all the changes made to a running container compared to
+the image from which it has been created.
+
+<p align="center">
+  <img src="doc/show_changes_dialog.png" alt="Changes to container">
+</p>
+
 
 ### Commit container changes
 
@@ -58,8 +67,9 @@ It is possible to commit a running container and either select or type the
 Image's repository, name and version.
 
 <p align="center">
-  <img src="doc/commit_container.png" alt="Docker Container Tab">
+  <img src="doc/commit_container.png" alt="Commit Docker container">
 </p>
+
 
 ### Inject terminal inside of a running container
 
@@ -73,7 +83,7 @@ Exiting from the new shell session the original **does not** affect the running
 container.
 
 <p align="center">
-  <img src="doc/injected_terminal.png" alt="Docker Container Tab">
+  <img src="doc/injected_terminal.png" alt="Inject terminal into Docker container">
 </p>
 
 
