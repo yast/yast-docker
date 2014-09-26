@@ -87,6 +87,12 @@ container.
 </p>
 
 
+## Installation
+
+Right now the package is avaialble only for openSUSE Factory and can be
+installed from [here](http://software.opensuse.org/package/yast2-docker?search_term=yast2-docker).
+
+
 ## Code status
 
 [![Coverage Status](https://coveralls.io/repos/yast/yast-docker/badge.png)](https://coveralls.io/r/yast/yast-docker)
