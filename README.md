@@ -48,7 +48,7 @@ The run dialog allows to specify the following options:
 This section of the module lists all the Docker containers running on the system.
 
 <p align="center">
-  <img src="doc/container_tab.png" alt="Docker Container Tab">
+  <img src="doc/containers_tab.png" alt="Docker Container Tab">
 </p>
 
 
