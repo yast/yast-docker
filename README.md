@@ -43,6 +43,39 @@ The run dialog allows to specify the following options:
 </p>
 
 
+## The containers tab
+
+This section of the module lists all the Docker containers running on the system.
+
+<p align="center">
+  <img src="doc/container_tab.png" alt="Docker Container Tab">
+</p>
+
+
+### Commit container changes
+
+It is possible to commit a running container and either select or type the
+Image's repository, name and version.
+
+<p align="center">
+  <img src="doc/commit_container.png" alt="Docker Container Tab">
+</p>
+
+### Inject terminal inside of a running container
+
+Sometimes it can be useful to have a terminal inside of a running container.
+This operation can be accomplished by using the `nsenter` tool as explained
+by [this](https://blog.docker.com/2014/06/why-you-dont-need-to-run-sshd-in-docker/)
+post on Docker Inc's blog.
+
+By pressing the *"Inject terminal"* button a new terminal window is started.
+Exiting from the new shell session the original **does not** affect the running
+container.
+
+<p align="center">
+  <img src="doc/injected_terminal.png" alt="Docker Container Tab">
+</p>
+
 
 ## Code status
 
