@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 24 15:05:53 UTC 2015 - ancor@suse.com
+
+- Release 3.1.2
+  - Launching from YaST Control Center works properly (bnc#918758)
+
+-------------------------------------------------------------------
 Thu Dec  4 09:50:07 UTC 2014 - jreidinger@suse.com
 
 - Release 3.3.1:
