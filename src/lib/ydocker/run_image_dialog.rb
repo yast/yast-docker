@@ -174,13 +174,15 @@ module YDocker
         )
       )
 
-      return if Yast::UI.UserInput == :cancel
+      if Yast::UI.UserInput == :cancel
+        Yast::UI.CloseDialog
+      else
+        @volumes << { :source => dir, :target => Yast::UI.QueryWidget(:target, :Value) }
 
-      @volumes << { :source => dir, :target => Yast::UI.QueryWidget(:target, :Value) }
+        Yast::UI.CloseDialog
 
-      Yast::UI.CloseDialog
-
-      redraw_volumes
+        redraw_volumes
+      end
     end
 
     def remove_volume
@@ -200,16 +202,18 @@ module YDocker
         )
       )
 
-      return if Yast::UI.UserInput == :cancel
+      if Yast::UI.UserInput == :cancel
+        Yast::UI.CloseDialog
+      else
+        @ports << {
+          :external => Yast::UI.QueryWidget(:external, :Value),
+          :internal => Yast::UI.QueryWidget(:internal, :Value)
+        }
 
-      @ports << {
-        :external => Yast::UI.QueryWidget(:external, :Value),
-        :internal => Yast::UI.QueryWidget(:internal, :Value)
-      }
+        Yast::UI.CloseDialog
 
-      Yast::UI.CloseDialog
-
-      redraw_ports
+        redraw_ports
+      end
     end
 
     def remove_port
