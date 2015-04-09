@@ -100,19 +100,11 @@ module YDocker
 
     def attach
       selected_shell = Yast::UI.QueryWidget(:shell, :Value)
-      pid = `docker inspect --format {{.State.Pid}} #{@container.id}`.chomp
-      if $?.exitstatus != 0
-        error_message = `docker inspect --format {{.State.Pid}} #{@container.id} 2>&1`.chomp
-        Yast::Popup.Error(_("Failed to inspect container. Error message: %s") % error_message)
-        return
-      end
-
-      pid = pid.to_i
 
       if Yast::UI.TextMode
-        Yast::UI.RunInTerminal("nsenter --target #{pid} --mount --uts --ipc --net --pid #{Shellwords.escape selected_shell} 2>&1")
+        Yast::UI.RunInTerminal("docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1")
       else
-        res = `xterm -e 'nsenter --target #{pid} --mount --uts --ipc --net --pid #{Shellwords.escape selected_shell} || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
+        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
         if $?.exitstatus != 0
           Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { :error => res })
           return

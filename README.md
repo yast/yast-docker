@@ -74,9 +74,8 @@ Image's repository, name and version.
 ### Inject terminal inside of a running container
 
 Sometimes it can be useful to have a terminal inside of a running container.
-This operation can be accomplished by using the `nsenter` tool as explained
-by [this](https://blog.docker.com/2014/06/why-you-dont-need-to-run-sshd-in-docker/)
-post on Docker Inc's blog.
+This operation can be accomplished by using the `docker exec` feature available
+since docker 1.3.
 
 By pressing the *"Inject terminal"* button a new terminal window is started.
 Exiting from the new shell session the original **does not** affect the running
