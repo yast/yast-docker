@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Apr 10 13:47:55 UTC 2015 - fcastelli@suse.com
+
+- Release 3.1.4
+  - Take advantage of 'docker exec' feature and get rid of nsenter.
+
+-------------------------------------------------------------------
 Fri Mar  6 13:46:39 UTC 2015 - ancor@suse.com
 
 - Release 3.1.3
