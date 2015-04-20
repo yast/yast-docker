@@ -1,6 +1,6 @@
 # YaST Docker Module
 
-This module provides access to a running Docker daemon running on the server.
+This module provides access to a Docker daemon running on the server.
 
 ## Features
 
@@ -31,11 +31,11 @@ This section of the module lists all the Docker images available on the system.
 Docker containers can be started by selecting an image from this tab and pressing
 the *"Run"* button.
 
-The run dialog allows to specify the following options:
+The run dialog allows you to specify the following options:
 
   * Share a volume between the Docker host and the container.
     Details about this Docker feature can be found inside of the [official documentation](https://docs.docker.com/userguide/dockervolumes/#mount-a-host-directory-as-a-data-volume).
-  * Map services listining inside of the container to the public network.
+  * Map services listening inside of the container to the public network.
     Details about this Docker feature can be found inside of the [official documentation](https://docs.docker.com/installation/mac/#container-port-redirection).
 
 <p align="center">
@@ -63,7 +63,7 @@ the image from which it has been created.
 
 ### Commit container changes
 
-It is possible to commit a running container and either select or type the
+It is possible to commit a running container and select or type the
 Image's repository, name and version.
 
 <p align="center">
@@ -78,7 +78,7 @@ This operation can be accomplished by using the `docker exec` feature available
 since docker 1.3.
 
 By pressing the *"Inject terminal"* button a new terminal window is started.
-Exiting from the new shell session the original **does not** affect the running
+Exiting from the new shell session **does not** affect the running
 container.
 
 <p align="center">
@@ -88,7 +88,7 @@ container.
 
 ## Installation
 
-Right now the package is avaialble only for openSUSE Factory and can be
+Right now the package is available only for openSUSE Factory and can be
 installed from [here](http://software.opensuse.org/package/yast2-docker?search_term=yast2-docker).
 
 
