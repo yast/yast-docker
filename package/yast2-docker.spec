@@ -1,7 +1,7 @@
 #
-# spec file for package yast2-services-manager
+# spec file for package yast2-docker
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,7 @@
 ######################################################################
 
 Name:           yast2-docker
-Version:        3.1.4
+Version:        3.1.5
 Release:        0
 BuildArch:      noarch
 
@@ -33,7 +33,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 Requires:       yast2 >= 3.1.0
 Requires:       yast2-ruby-bindings >= 1.2.0
-Requires:       rubygem(docker-api)
+Requires:       rubygem(%{rb_default_ruby_abi}:docker-api)
 Requires:       docker >= 1.3
 
 BuildRequires:  update-desktop-files
