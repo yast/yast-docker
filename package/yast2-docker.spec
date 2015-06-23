@@ -33,6 +33,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 Requires:       yast2 >= 3.1.0
 Requires:       yast2-ruby-bindings >= 1.2.0
+Requires:       yast2-storage
 Requires:       rubygem(%{rb_default_ruby_abi}:docker-api)
 Requires:       docker >= 1.3
 
