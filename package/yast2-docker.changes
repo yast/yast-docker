@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 23 18:53:21 UTC 2015 - jmassaguerpla@suse.com
+
+- Release 3.1.7
+  - fix for bsc#938441 - prompt before removing container on stop and kill
+
+-------------------------------------------------------------------
 Thu Jun 25 09:05:11 UTC 2015 - fcastelli@suse.com
 
 - Release 3.1.6
