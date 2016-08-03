@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Aug  2 15:15:13 UTC 2016 - mvidner@suse.com
+
+- Declare textdomain to fix untranslated texts in popup dialogs
+  (bsc#991753).
+- 3.1.8
+
+-------------------------------------------------------------------
 Thu Jul 23 18:53:21 UTC 2015 - jmassaguerpla@suse.com
 
 - Release 3.1.7

@@ -28,6 +28,7 @@ module YDocker
     extend Yast::I18n
 
     def initialize(image)
+      textdomain "docker"
       @image = image
       @volumes = []
       @ports = []

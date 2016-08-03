@@ -26,6 +26,7 @@ module YDocker
     extend Yast::I18n
 
     def initialize(container)
+      textdomain "docker"
       @container = container
     end
 
