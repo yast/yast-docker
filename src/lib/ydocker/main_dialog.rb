@@ -245,7 +245,7 @@ Run this module as root or start docker service manually."))
     end
 
     def containers_items
-      containers = Docker::Container.all
+      containers = Docker::Container.all(:all => true)
       containers.map do |container|
         Item(
           Id(container.id),
