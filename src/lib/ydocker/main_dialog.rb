@@ -165,21 +165,25 @@ Run this module as root or start docker service manually."))
     end
 
     def stop_container
-      return unless Yast::Popup.YesNo(_("Do you really want to stop the running container?"))
-      selected_container.stop!
-      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
-      selected_container.delete
-
-      redraw_containers
+      if Yast::Popup.YesNo(_("Do you really want to stop the running container?"))
+        selected_container.stop!
+        redraw_containers
+      end
+      if Yast::Popup.YesNo(_("Do you want to remove the container?"))
+        selected_container.delete
+        redraw_containers
+      end
     end
 
     def kill_container
-      return unless Yast::Popup.YesNo(_("Do you really want to kill the running container?"))
-      selected_container.kill!
-      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
-      selected_container.delete
-
-      redraw_containers
+      if Yast::Popup.YesNo(_("Do you really want to kill the running container?"))
+        selected_container.kill!
+        redraw_containers
+      end
+      if Yast::Popup.YesNo(_("Do you want to remove the container?"))
+        selected_container.delete
+        redraw_containers
+      end
     end
 
     def dialog_content
