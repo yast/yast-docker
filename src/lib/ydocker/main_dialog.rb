@@ -313,8 +313,8 @@ Run this module as root or start docker service manually."))
         VBox(
           action_button(:containers_redraw, _("Re&fresh")),
           action_button(:container_changes, _("S&how Changes")),
-          action_button(:container_inject, _("Inject &Terminal")),
           action_button(:container_start, _("St&art Container")),
+          action_button(:container_inject, _("Inject &Terminal")),
           action_button(:container_stop, _("&Stop Container")),
           action_button(:container_kill, _("&Kill Container")),
           action_button(:container_commit, _("&Commit"))
