@@ -94,6 +94,8 @@ Run this module as root or start docker service manually."))
           case input
           when :ok, :cancel
             return :ok
+          when :container_start
+            start_container
           when :container_stop
             stop_container
           when :container_kill
@@ -108,6 +110,8 @@ Run this module as root or start docker service manually."))
             ChangesDialog.new(selected_container).run
           when :container_commit
             CommitDialog.new(selected_container).run
+          when :containers_table
+            update_containers_buttons
           when :images
             switch_to_images
           when :containers
@@ -151,6 +155,13 @@ Run this module as root or start docker service manually."))
       selected = Yast::UI.QueryWidget(:containers_table, :SelectedItems)
       selected = selected.first if selected.is_a? Array
       Docker::Container.get(selected)
+    end
+
+    def start_container
+      return unless (Yast::Popup.YesNo(_("Do you really want to start the container?")))
+      selected_container.start!
+
+      redraw_containers
     end
 
     def stop_container
@@ -232,6 +243,7 @@ Run this module as root or start docker service manually."))
     def containers_table
       Table(
         Id(:containers_table),
+        Opt(:notify, :immediate),
         Header(
           _("Container ID"),
           _("Image"),
@@ -302,6 +314,7 @@ Run this module as root or start docker service manually."))
           action_button(:containers_redraw, _("Re&fresh")),
           action_button(:container_changes, _("S&how Changes")),
           action_button(:container_inject, _("Inject &Terminal")),
+          action_button(:container_start, _("St&art Container")),
           action_button(:container_stop, _("&Stop Container")),
           action_button(:container_kill, _("&Kill Container")),
           action_button(:container_commit, _("&Commit"))
