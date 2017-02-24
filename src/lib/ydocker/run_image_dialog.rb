@@ -29,6 +29,9 @@ module YDocker
     def initialize(image)
       textdomain "docker"
       @image = image
+
+      # FIXME: Take in account when there is no Cmd option
+      @run_cmd = @image.json['Config']['Cmd'][-1]
       @volumes = []
       @ports = []
     end
@@ -122,7 +125,8 @@ module YDocker
         InputField(
           Id(:run_cmd),
           Opt(:notify),
-          _("Command")
+          _("Command"),
+          @run_cmd
         )
       )
     end
