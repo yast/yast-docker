@@ -24,6 +24,7 @@ require "ydocker/changes_dialog"
 require "ydocker/commit_dialog"
 require "ydocker/run_image_dialog"
 require "ydocker/inject_shell_dialog"
+require "ydocker/pull_image_dialog"
 
 module YDocker
   class MainDialog
@@ -120,6 +121,9 @@ Run this module as root or start docker service manually."))
             image_delete
           when :images_table
             update_images_buttons
+          when :image_pull
+            return_value = PullImageDialog.new.run
+            redraw_images if return_value == :ok
           when :image_run
             RunImageDialog.new(selected_image[0]).run
           else
@@ -306,6 +310,7 @@ Run this module as root or start docker service manually."))
       HSquash(
         VBox(
           action_button(:images_redraw, _("Re&fresh")),
+          action_button(:image_pull, _("&Pull")),
           action_button(:image_run, _("R&un")),
           action_button(:image_delete, _("&Delete"))
         )
