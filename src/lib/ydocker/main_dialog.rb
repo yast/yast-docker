@@ -108,7 +108,7 @@ Run this module as root or start docker service manually."))
           when :container_inject
             InjectShellDialog.new(selected_container).run
           when :container_changes
-            ChangesDialog.new(selected_container).run
+            container_changes
           when :container_commit
             CommitDialog.new(selected_container).run
           when :containers_table
@@ -363,14 +363,24 @@ Run this module as root or start docker service manually."))
 
     def update_containers_buttons
       is_something_selected = !Yast::UI.QueryWidget(:containers_table, :SelectedItems).empty?
-      [:container_changes, :container_kill, :container_commit].each do |item|
+      [:container_kill, :container_commit].each do |item|
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
       if is_something_selected
         running = selected_container.info['State']['Status'] == 'running'
         Yast::UI.ChangeWidget(:container_start, :Enabled, !running)
+        Yast::UI.ChangeWidget(:container_changes, :Enabled, running)
         Yast::UI.ChangeWidget(:container_inject, :Enabled, running)
         Yast::UI.ChangeWidget(:container_stop, :Enabled, running)
+      end
+    end
+
+    def container_changes
+      if selected_container.changes
+        ChangesDialog.new(selected_container).run
+      else
+        Yast::Popup.Warning(_("Changes where not found for container. Probably the container is stopped."))
+        redraw_containers
       end
     end
   end
