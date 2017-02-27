@@ -126,6 +126,10 @@ module YDocker
     def contents
       VBox(
         Left(InputField(
+          Id(:name),
+          _("Name")
+        )),
+        Left(InputField(
           Id(:hostname),
           _("Hostname")
         )),
@@ -260,10 +264,14 @@ module YDocker
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
       options = {'Image' => @image.id, 'Cmd' => command, 'HostConfig' => {}}
 
+      name = Yast::UI.QueryWidget(:name, :Value)
       hostname = Yast::UI.QueryWidget(:hostname, :Value)
       link = Yast::UI.QueryWidget(:link, :Value)
       volumes_from = Yast::UI.QueryWidget(:volumes_from, :Value)
 
+      if !name.empty?
+        options['name'] = name
+      end
       if !hostname.empty?
         options['Hostname'] = hostname
       end
