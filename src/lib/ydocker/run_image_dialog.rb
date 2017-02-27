@@ -30,7 +30,16 @@ module YDocker
       textdomain "docker"
       @image = image
 
-      @run_cmd = @image.json['Config'].key('Cmd') ? @image.json['Config']['Cmd'][-1] : ''
+      config_command = @image.json['Config']['Cmd']
+      @run_cmd =
+        case config_command
+        when String
+          config_command
+        when Array
+          config_command.join(' ')
+        else
+          ''
+        end
       @volumes = []
       @ports = []
     end
