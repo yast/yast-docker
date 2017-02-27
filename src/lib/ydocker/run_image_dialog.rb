@@ -100,16 +100,13 @@ module YDocker
       Heading(_("Run Container"))
     end
 
-    def frame_table_with_buttons(headings, id, button_suffix)
+    def frame_table_with_buttons(headings, table_header, id, button_suffix)
       Frame(
         headings,
         VBox(
           Table(
             Id(id),
-            Header(
-              _("Host"),
-              _("Container")
-            ),
+            table_header,
             []
           ),
           HBox(
@@ -136,9 +133,9 @@ module YDocker
           Id(:link),
           _("Link")
         )),
-        frame_table_with_buttons(_("Volumes"), :volumes_table, "volume"),
-        frame_table_with_buttons(_("Ports"), :ports_table, "port"),
         InputField(
+        frame_table_with_buttons(_("Volumes"), Header(_("Host"), _("Container")), :volumes_table, "volume"),
+        frame_table_with_buttons(_("Ports"), Header(_("External"), _("Internal"), _("Protocol")), :ports_table, "port"),
           Id(:run_cmd),
           Opt(:notify),
           _("Command"),
@@ -170,7 +167,8 @@ module YDocker
         Item(
           Id(mapping),
           mapping[:external],
-          mapping[:internal]
+          mapping[:internal],
+          mapping[:protocol]
         )
       end
     end
@@ -217,6 +215,8 @@ module YDocker
         VBox(
           InputField(Id(:external), _("Choose external port"), ""),
           InputField(Id(:internal), _("Choose internal port"), ""),
+          # TODO: Select between tcp and udp
+          InputField(Id(:protocol), _("Choose protocol port"), "tcp"),
           ending_buttons
         )
       )
@@ -225,8 +225,9 @@ module YDocker
         Yast::UI.CloseDialog
       else
         @ports << {
-          external: Yast::UI.QueryWidget(:external, :Value),
-          internal: Yast::UI.QueryWidget(:internal, :Value)
+          :external => Yast::UI.QueryWidget(:external, :Value),
+          :internal => Yast::UI.QueryWidget(:internal, :Value),
+          :protocol => Yast::UI.QueryWidget(:protocol, :Value)
         }
 
         Yast::UI.CloseDialog
@@ -246,7 +247,7 @@ module YDocker
     def port_bindings
       bindings = {}
       @ports.each do |mapping|
-        bindings["#{mapping[:internal]}/tcp"] = [{ "HostPort" => mapping[:external] }]
+        bindings["#{mapping[:internal]}/#{mapping[:protocol]}"] = [{"HostPort" => mapping[:external]}]
       end
       bindings
     end
@@ -268,7 +269,9 @@ module YDocker
         options['HostConfig']['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
       end
 
-      options["PortBindings"] = port_bindings if !@ports.empty?
+      if !@ports.empty?
+        options['HostConfig']['PortBindings'] = port_bindings
+      end
 
       container = Docker::Container.create(options)
       container.start!
