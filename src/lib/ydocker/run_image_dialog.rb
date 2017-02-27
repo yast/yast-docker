@@ -123,6 +123,10 @@ module YDocker
           Id(:hostname),
           _("Hostname")
         )),
+        Left(InputField(
+          Id(:link),
+          _("Link")
+        )),
         frame_table_with_buttons(_("Volumes"), :volumes_table, "volume"),
         frame_table_with_buttons(_("Ports"), :ports_table, "port"),
         InputField(
@@ -243,9 +247,14 @@ module YDocker
       options = {'Image' => @image.id, "Cmd" => command}
 
       hostname = Yast::UI.QueryWidget(:hostname, :Value)
+      link = Yast::UI.QueryWidget(:link, :Value)
 
       if !hostname.empty?
         options['Hostname'] = hostname
+      end
+      if !link.empty?
+        options['HostConfig'] = {} if !options.key('HostConfig')
+        options['HostConfig']['Links'] = [link]
       end
       if !@volumes.empty?
         options["Binds"] = @volumes.map { |mapping| "#{mapping[:source]}:#{mapping[:target]}" }
