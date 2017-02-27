@@ -30,8 +30,7 @@ module YDocker
       textdomain "docker"
       @image = image
 
-      # FIXME: Take in account when there is no Cmd option
-      @run_cmd = @image.json['Config']['Cmd'][-1]
+      @run_cmd = @image.json['Config'].key('Cmd') ? @image.json['Config']['Cmd'][-1] : ''
       @volumes = []
       @ports = []
     end
