@@ -120,6 +120,10 @@ module YDocker
 
     def contents
       VBox(
+        Left(InputField(
+          Id(:hostname),
+          _("Hostname")
+        )),
         frame_table_with_buttons(_("Volumes"), :volumes_table, "volume"),
         frame_table_with_buttons(_("Ports"), :ports_table, "port"),
         InputField(
@@ -237,16 +241,21 @@ module YDocker
 
     def run_container
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-      container = Docker::Container.create("Image" => @image.id, "Cmd" => command)
-      options = {}
+      options = {'Image' => @image.id, "Cmd" => command}
 
+      hostname = Yast::UI.QueryWidget(:hostname, :Value)
+
+      if !hostname.empty?
+        options['Hostname'] = hostname
+      end
       if !@volumes.empty?
         options["Binds"] = @volumes.map { |mapping| "#{mapping[:source]}:#{mapping[:target]}" }
       end
 
       options["PortBindings"] = port_bindings if !@ports.empty?
 
-      container.start!(options)
+      container = Docker::Container.create(options)
+      container.start!
     end
 
     def update_ok_button
