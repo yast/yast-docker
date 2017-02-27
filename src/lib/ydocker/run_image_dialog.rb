@@ -256,7 +256,7 @@ module YDocker
         options['HostConfig']['Links'] = [link]
       end
       if !@volumes.empty?
-        options["Binds"] = @volumes.map { |mapping| "#{mapping[:source]}:#{mapping[:target]}" }
+        options['HostConfig']['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
       end
 
       options["PortBindings"] = port_bindings if !@ports.empty?
