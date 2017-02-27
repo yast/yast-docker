@@ -244,7 +244,7 @@ module YDocker
 
     def run_container
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-      options = {'Image' => @image.id, "Cmd" => command}
+      options = {'Image' => @image.id, 'Cmd' => command, 'HostConfig' => {}}
 
       hostname = Yast::UI.QueryWidget(:hostname, :Value)
       link = Yast::UI.QueryWidget(:link, :Value)
@@ -253,7 +253,6 @@ module YDocker
         options['Hostname'] = hostname
       end
       if !link.empty?
-        options['HostConfig'] = {} if !options.key('HostConfig')
         options['HostConfig']['Links'] = [link]
       end
       if !@volumes.empty?
