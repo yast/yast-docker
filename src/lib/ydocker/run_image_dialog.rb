@@ -133,14 +133,18 @@ module YDocker
           Id(:link),
           _("Link")
         )),
-        InputField(
         frame_table_with_buttons(_("Volumes"), Header(_("Host"), _("Container")), :volumes_table, "volume"),
+        Left(InputField(
+          Id(:volumes_from),
+          _("Volumes from")
+        )),
         frame_table_with_buttons(_("Ports"), Header(_("External"), _("Internal"), _("Protocol")), :ports_table, "port"),
+        Left(InputField(
           Id(:run_cmd),
           Opt(:notify),
           _("Command"),
           @run_cmd
-        )
+        ))
       )
     end
 
@@ -258,12 +262,16 @@ module YDocker
 
       hostname = Yast::UI.QueryWidget(:hostname, :Value)
       link = Yast::UI.QueryWidget(:link, :Value)
+      volumes_from = Yast::UI.QueryWidget(:volumes_from, :Value)
 
       if !hostname.empty?
         options['Hostname'] = hostname
       end
       if !link.empty?
         options['HostConfig']['Links'] = [link]
+      end
+      if !volumes_from.empty?
+        options['HostConfig']['VolumesFrom'] = [volumes_from]
       end
       if !@volumes.empty?
         options['HostConfig']['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
