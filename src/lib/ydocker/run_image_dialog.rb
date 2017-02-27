@@ -143,6 +143,7 @@ module YDocker
           _("Volumes from")
         )),
         frame_table_with_buttons(_("Ports"), Header(_("External"), _("Internal"), _("Protocol")), :ports_table, "port"),
+        Left(CheckBox(Id(:privileged), _("Privileged"), false)),
         Left(InputField(
           Id(:run_cmd),
           Opt(:notify),
@@ -284,10 +285,10 @@ module YDocker
       if !@volumes.empty?
         options['HostConfig']['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
       end
-
       if !@ports.empty?
         options['HostConfig']['PortBindings'] = port_bindings
       end
+      options['Privileged'] = Yast::UI.QueryWidget(:privileged, :Value)
 
       container = Docker::Container.create(options)
       container.start!
