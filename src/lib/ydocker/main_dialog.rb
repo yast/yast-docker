@@ -162,9 +162,7 @@ Run this module as root or start docker service manually."))
     end
 
     def start_container
-      return unless (Yast::Popup.YesNo(_("Do you really want to start the container?")))
       selected_container.start!
-
       redraw_containers
     end
 
