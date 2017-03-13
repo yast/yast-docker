@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar 13 10:00:26 UTC 2017 - ancor@suse.com
+
+- Fixed RPM packaging error (bsc#1029088)
+- 3.2.0
+
+-------------------------------------------------------------------
 Tue Aug  2 15:15:13 UTC 2016 - mvidner@suse.com
 
 - Declare textdomain to fix untranslated texts in popup dialogs
