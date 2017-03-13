@@ -24,7 +24,7 @@
 ######################################################################
 
 Name:           yast2-docker
-Version:        3.1.8
+Version:        3.2.0
 Release:        0
 BuildArch:      noarch
 
@@ -72,3 +72,4 @@ rake install DESTDIR="%{buildroot}"
 %{yast_desktopdir}/docker-config.desktop
 
 %doc COPYING
+%doc README.md
