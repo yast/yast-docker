@@ -1,1 +1,4 @@
 package/*.tar.*
+.yardoc/
+doc/autodocs
+*.pot

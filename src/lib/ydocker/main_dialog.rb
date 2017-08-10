@@ -18,6 +18,7 @@
 
 require "yast"
 require "docker"
+require "y2storage"
 
 require "ydocker/changes_dialog"
 require "ydocker/commit_dialog"
@@ -33,7 +34,6 @@ module YDocker
     def self.run
       Yast.import "UI"
       Yast.import "Popup"
-      Yast.import "Storage"
       Yast.import "Service"
 
       dialog = self.new
@@ -266,7 +266,7 @@ module YDocker
             tag,
             image.id.slice(0, 12),
             DateTime.strptime(image.info["Created"].to_s, "%s").to_s,
-            Yast::Storage.ByteToHumanString(image.info["VirtualSize"])
+            Y2Storage::DiskSize.new(image.info["VirtualSize"]).to_human_string
           )
         end
       end
