@@ -2,7 +2,7 @@
 Thu Aug 10 16:01:27 UTC 2017 - ancor@suse.com
 
 - Use yast2-storage-ng instead of yast2-storage to display the
-  size of the images.
+  size of the images (part of fate#318196).
 - 3.3.0
 
 -------------------------------------------------------------------
