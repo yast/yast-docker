@@ -258,7 +258,9 @@ module YDocker
       images = Docker::Image.all
       ret = []
       images.map do |image|
-        image.info['RepoTags'].each do |repotag|
+        repotags = image.info['RepoTags']
+        repotags = [':<none>'] if repotags.nil?
+        repotags.each do |repotag|
           repository, tag = repotag.split(":", 2)
           ret << Item(
             Id({:id => image.id, :label => repotag}),
