@@ -83,7 +83,7 @@ module YDocker
       )
     end
 
-    STATUS_MAPPING = { # TODO translation
+    STATUS_MAPPING = { # TODO: translation
       0 => ("Modified"),
       1 => ("Created"),
       2 => ("Deleted")

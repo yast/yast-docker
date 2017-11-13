@@ -42,14 +42,6 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 35
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-    - 'src/lib/ydocker/changes_dialog.rb'
-
 # Offense count: 5
 Style/Documentation:
   Exclude:
