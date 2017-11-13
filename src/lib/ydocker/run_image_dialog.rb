@@ -70,7 +70,7 @@ module YDocker
           add_port
         when :run_cmd
           update_ok_button
-         when :remove_port
+        when :remove_port
           remove_port
         else
           raise "Unknown action #{input}"

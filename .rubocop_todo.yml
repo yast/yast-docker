@@ -44,14 +44,6 @@ Metrics/MethodLength:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep, IndentationWidth.
-# SupportedStyles: case, end
-Style/CaseIndentation:
-  Exclude:
-    - 'src/lib/ydocker/run_image_dialog.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: Keywords.
 # Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
 Style/CommentAnnotation:
@@ -67,12 +59,6 @@ Style/Documentation:
     - 'src/lib/ydocker/commit_dialog.rb'
     - 'src/lib/ydocker/inject_shell_dialog.rb'
     - 'src/lib/ydocker/main_dialog.rb'
-    - 'src/lib/ydocker/run_image_dialog.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ElseAlignment:
-  Exclude:
     - 'src/lib/ydocker/run_image_dialog.rb'
 
 # Offense count: 5
