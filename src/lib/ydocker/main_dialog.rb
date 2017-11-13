@@ -56,6 +56,7 @@ module YDocker
     end
 
   private
+
     DEFAULT_SIZE_OPT = Yast::Term.new(:opt, :defaultsize)
 
     def create_dialog
