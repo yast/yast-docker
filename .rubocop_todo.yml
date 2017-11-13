@@ -53,16 +53,6 @@ Style/Documentation:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/InfiniteLoop:
-  Exclude:
-    - 'src/lib/ydocker/changes_dialog.rb'
-    - 'src/lib/ydocker/commit_dialog.rb'
-    - 'src/lib/ydocker/inject_shell_dialog.rb'
-    - 'src/lib/ydocker/main_dialog.rb'
-    - 'src/lib/ydocker/run_image_dialog.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:

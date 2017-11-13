@@ -85,7 +85,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         handle_docker_exceptions do
           case input
