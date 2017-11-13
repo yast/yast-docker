@@ -251,6 +251,5 @@ module YDocker
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
       Yast::UI.ChangeWidget(:ok, :Enabled, !command.empty?)
     end
-
   end
 end

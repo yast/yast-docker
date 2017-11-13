@@ -339,6 +339,5 @@ module YDocker
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
     end
-
   end
 end

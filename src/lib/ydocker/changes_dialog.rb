@@ -108,6 +108,5 @@ module YDocker
     def ending_buttons
       PushButton(Id(:ok), _("&Exit"))
     end
-
   end
 end

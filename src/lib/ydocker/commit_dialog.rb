@@ -190,6 +190,5 @@ module YDocker
 
       @container.commit(options)
     end
-
   end
 end

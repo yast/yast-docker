@@ -111,6 +111,5 @@ module YDocker
         end
       end
     end
-
   end
 end
