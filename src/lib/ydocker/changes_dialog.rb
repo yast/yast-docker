@@ -86,7 +86,7 @@ module YDocker
       0 => ("Modified"),
       1 => ("Created"),
       2 => ("Deleted")
-    }
+    }.freeze
 
     def changes_items
       changes = @container.changes

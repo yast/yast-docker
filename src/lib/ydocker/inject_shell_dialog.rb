@@ -93,7 +93,7 @@ module YDocker
       )
     end
 
-    SHELLS = [ "bash", "sh", "zsh", "csh" ]
+    SHELLS = [ "bash", "sh", "zsh", "csh" ].freeze
     def proposed_shells
       SHELLS.map{|shell| Item(Id(shell), shell) }
     end
