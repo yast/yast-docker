@@ -81,7 +81,6 @@ module YDocker
       Heading(_("Commit Container"))
     end
 
-
     def contents
       VBox(
         ComboBox(

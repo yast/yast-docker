@@ -71,7 +71,6 @@ module YDocker
       Heading(_("Changes in Container"))
     end
 
-
     def changes_table
       Table(
         Id(:changes_table),

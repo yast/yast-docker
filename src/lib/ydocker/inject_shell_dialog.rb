@@ -75,7 +75,6 @@ module YDocker
       Heading(_("Inject Shell"))
     end
 
-
     def contents
       VBox(
         ComboBox(
