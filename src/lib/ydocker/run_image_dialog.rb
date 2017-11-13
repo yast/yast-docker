@@ -240,9 +240,7 @@ module YDocker
           options['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
         end
 
-        if !@ports.empty?
-          options['PortBindings'] = port_bindings
-        end
+        options['PortBindings'] = port_bindings if !@ports.empty?
 
         container.start!(options)
     end
