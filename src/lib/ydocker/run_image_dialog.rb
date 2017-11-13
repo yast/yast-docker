@@ -176,7 +176,7 @@ module YDocker
       if Yast::UI.UserInput == :cancel
         Yast::UI.CloseDialog
       else
-        @volumes << { :source => dir, :target => Yast::UI.QueryWidget(:target, :Value) }
+        @volumes << { source: dir, target: Yast::UI.QueryWidget(:target, :Value) }
 
         Yast::UI.CloseDialog
 
@@ -205,8 +205,8 @@ module YDocker
         Yast::UI.CloseDialog
       else
         @ports << {
-          :external => Yast::UI.QueryWidget(:external, :Value),
-          :internal => Yast::UI.QueryWidget(:internal, :Value)
+          external: Yast::UI.QueryWidget(:external, :Value),
+          internal: Yast::UI.QueryWidget(:internal, :Value)
         }
 
         Yast::UI.CloseDialog
