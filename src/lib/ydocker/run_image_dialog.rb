@@ -232,17 +232,17 @@ module YDocker
     end
 
     def run_container
-        command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-        container = Docker::Container.create(opts={'Image' => @image.id, "Cmd" => command})
-        options = {}
+      command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
+      container = Docker::Container.create(opts={'Image' => @image.id, "Cmd" => command})
+      options = {}
 
-        if !@volumes.empty?
-          options['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
-        end
+      if !@volumes.empty?
+        options['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
+      end
 
-        options['PortBindings'] = port_bindings if !@ports.empty?
+      options['PortBindings'] = port_bindings if !@ports.empty?
 
-        container.start!(options)
+      container.start!(options)
     end
 
     def update_ok_button
