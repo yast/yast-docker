@@ -45,7 +45,6 @@ module YDocker
     end
 
     def run
-
       return unless create_dialog
 
       begin

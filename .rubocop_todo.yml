@@ -53,12 +53,6 @@ Style/Documentation:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'src/lib/ydocker/main_dialog.rb'
-
 # Offense count: 7
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
