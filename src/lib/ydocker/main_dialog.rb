@@ -149,18 +149,18 @@ module YDocker
     end
 
     def stop_container
-      return unless (Yast::Popup.YesNo(_("Do you really want to stop the running container?")))
+      return unless Yast::Popup.YesNo(_("Do you really want to stop the running container?"))
       selected_container.stop!
-      return unless (Yast::Popup.YesNo(_("Do you want to remove the container?")))
+      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
       selected_container.delete
 
       redraw_containers
     end
 
     def kill_container
-      return unless (Yast::Popup.YesNo(_("Do you really want to kill the running container?")))
+      return unless Yast::Popup.YesNo(_("Do you really want to kill the running container?"))
       selected_container.kill!
-      return unless (Yast::Popup.YesNo(_("Do you want to remove the container?")))
+      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
       selected_container.delete
 
       redraw_containers
@@ -314,7 +314,7 @@ module YDocker
 
     def image_delete
       image, label = selected_image
-      return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
+      return unless Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label)
 
       if label == '<none>:<none>'
         image.remove
