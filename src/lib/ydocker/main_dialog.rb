@@ -220,7 +220,7 @@ module YDocker
           _("Created"),
           _("Virtual Size")
         ),
-       images_items
+        images_items
       )
     end
 
