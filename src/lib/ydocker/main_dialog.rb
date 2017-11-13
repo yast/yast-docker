@@ -263,7 +263,7 @@ module YDocker
         repotags.each do |repotag|
           repository, tag = repotag.split(":", 2)
           ret << Item(
-            Id({:id => image.id, :label => repotag}),
+            Id(:id => image.id, :label => repotag),
             repository,
             tag,
             image.id.slice(0, 12),
