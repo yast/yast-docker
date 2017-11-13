@@ -15,13 +15,6 @@ Lint/LiteralInCondition:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'src/lib/ydocker/main_dialog.rb'
-
 # Offense count: 3
 Lint/UselessAssignment:
   Exclude:

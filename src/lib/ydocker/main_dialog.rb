@@ -134,7 +134,7 @@ module YDocker
       @current_tab = :containers
     end
 
-    def handle_docker_exceptions(&block)
+    def handle_docker_exceptions
       yield
     rescue Docker::Error::DockerError => e
       log.error "Docker exception #{e.inspect}"
