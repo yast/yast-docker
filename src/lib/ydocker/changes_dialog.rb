@@ -83,9 +83,9 @@ module YDocker
     end
 
     STATUS_MAPPING = { # TODO: translation
-      0 => ("Modified"),
-      1 => ("Created"),
-      2 => ("Deleted")
+      0 => "Modified",
+      1 => "Created",
+      2 => "Deleted"
     }.freeze
 
     def changes_items
@@ -100,7 +100,7 @@ module YDocker
       changes.map do |change|
         Item(
           change["Path"],
-          ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s)
+          (STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s
         )
       end
     end

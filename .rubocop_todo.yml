@@ -53,13 +53,6 @@ Style/Documentation:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'src/lib/ydocker/changes_dialog.rb'
-    - 'src/lib/ydocker/main_dialog.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSelf:
