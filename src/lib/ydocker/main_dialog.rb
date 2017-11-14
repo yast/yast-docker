@@ -36,7 +36,7 @@ module YDocker
       Yast.import "Popup"
       Yast.import "Service"
 
-      dialog = self.new
+      dialog = new
       dialog.run
     end
 
