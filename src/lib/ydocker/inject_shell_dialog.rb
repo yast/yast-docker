@@ -102,9 +102,12 @@ module YDocker
       selected_shell = Yast::UI.QueryWidget(:shell, :Value)
 
       if Yast::UI.TextMode
-        Yast::UI.RunInTerminal("docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1")
+        Yast::UI.RunInTerminal(
+          "docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1"
+        )
       else
-        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
+        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} \
+          || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
         if $CHILD_STATUS.exitstatus != 0
           Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { error: res })
           return

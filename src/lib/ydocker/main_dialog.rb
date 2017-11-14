@@ -71,11 +71,14 @@ module YDocker
 
       # Only root can start process
       if Process::UID.rid == 0
-        return false unless Yast::Popup.YesNo(_("Docker service does not run. Should YaST start docker? Otherwise YaST quits."))
+        return false unless Yast::Popup.YesNo(
+          _("Docker service does not run. Should YaST start docker? Otherwise YaST quits.")
+        )
 
         return Yast::Service.start("docker")
       else
-        Yast::Popup.Error(_("Docker service does not run. Run this module as root or start docker service manually."))
+        Yast::Popup.Error(_("Docker service does not run. \
+Run this module as root or start docker service manually."))
         return false
       end
     end
@@ -138,7 +141,9 @@ module YDocker
       yield
     rescue Docker::Error::DockerError => e
       log.error "Docker exception #{e.inspect}"
-      Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
+      Yast::Popup.Error(
+        _("Communication with docker failed with error: %s. Please try again.") % e.to_s
+      )
       @current_tab == :images ? redraw_images : redraw_containers
     end
 
@@ -249,7 +254,9 @@ module YDocker
           container.info["Command"],
           DateTime.strptime(container.info["Created"].to_s, "%s").to_s,
           container.info["Status"],
-          container.info["Ports"].map { |p| "#{p["IP"]}:#{p["PublicPort"]}->#{p["PrivatePort"]}/#{p["Type"]}" }.join(",")
+          container.info["Ports"].map do |p|
+            "#{p["IP"]}:#{p["PublicPort"]}->#{p["PrivatePort"]}/#{p["Type"]}"
+          end.join(",")
         )
       end
     end
@@ -334,7 +341,8 @@ module YDocker
 
     def update_containers_buttons
       is_something_selected = !Yast::UI.QueryWidget(:containers_table, :SelectedItems).empty?
-      [:container_inject, :container_changes, :container_stop, :container_kill, :container_commit].each do |item|
+      [:container_inject, :container_changes, :container_stop, :container_kill,
+       :container_commit].each do |item|
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
     end
