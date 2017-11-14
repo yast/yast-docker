@@ -133,7 +133,7 @@ module YDocker
     def available_repositories
       keys = images.keys
       keys.delete("")
-      repos = keys.map{|repo_name| Item(Id(repo_name), repo_name) }
+      repos = keys.map {|repo_name| Item(Id(repo_name), repo_name) }
       repos << Item(Id(""), "", true)
     end
 
@@ -141,7 +141,7 @@ module YDocker
       selected = Yast::UI.QueryWidget(:repository, :Value)
       if images[selected]
         keys = images[selected].keys
-        images = keys.map{|image_name| Item(Id(image_name), image_name) }
+        images = keys.map {|image_name| Item(Id(image_name), image_name) }
       else
         [Item(Id(""), "", true)]
       end
