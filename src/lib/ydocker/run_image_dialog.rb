@@ -233,7 +233,7 @@ module YDocker
 
     def run_container
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-      container = Docker::Container.create(opts={'Image' => @image.id, "Cmd" => command})
+      container = Docker::Container.create(opts = {'Image' => @image.id, "Cmd" => command})
       options = {}
 
       if !@volumes.empty?
