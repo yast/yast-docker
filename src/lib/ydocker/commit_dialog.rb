@@ -141,7 +141,7 @@ module YDocker
       selected = Yast::UI.QueryWidget(:repository, :Value)
       if images[selected]
         keys = images[selected].keys
-        images = keys.map { |image_name| Item(Id(image_name), image_name) }
+        keys.map { |image_name| Item(Id(image_name), image_name) }
       else
         [Item(Id(""), "", true)]
       end
