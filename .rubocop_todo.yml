@@ -53,17 +53,6 @@ Style/Documentation:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-Style/SpaceInsideBlockBraces:
-  Exclude:
-    - 'src/lib/ydocker/commit_dialog.rb'
-    - 'src/lib/ydocker/inject_shell_dialog.rb'
-    - 'src/lib/ydocker/main_dialog.rb'
-    - 'src/lib/ydocker/run_image_dialog.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/SpaceInsideBrackets:

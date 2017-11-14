@@ -116,7 +116,7 @@ module YDocker
     def images
       return @images if @images
 
-      @images = Hash.new {|h, k| h[k] = Hash.new {|h2, k2| h2[k2] = []} }
+      @images = Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = [] } }
       Docker::Image.all.each do |image|
         image.info["RepoTags"].each do |repo_tag|
           matches = repo_tag.match(/\A(?:([^\/]+)\/)?([^:]+)(?::(.+))?\z/)
@@ -133,7 +133,7 @@ module YDocker
     def available_repositories
       keys = images.keys
       keys.delete("")
-      repos = keys.map {|repo_name| Item(Id(repo_name), repo_name) }
+      repos = keys.map { |repo_name| Item(Id(repo_name), repo_name) }
       repos << Item(Id(""), "", true)
     end
 
@@ -141,7 +141,7 @@ module YDocker
       selected = Yast::UI.QueryWidget(:repository, :Value)
       if images[selected]
         keys = images[selected].keys
-        images = keys.map {|image_name| Item(Id(image_name), image_name) }
+        images = keys.map { |image_name| Item(Id(image_name), image_name) }
       else
         [Item(Id(""), "", true)]
       end
