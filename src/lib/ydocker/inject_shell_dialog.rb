@@ -105,7 +105,7 @@ module YDocker
         Yast::UI.RunInTerminal("docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1")
       else
         res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
-        if $?.exitstatus != 0
+        if $CHILD_STATUS.exitstatus != 0
           Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { error: res })
           return
         end

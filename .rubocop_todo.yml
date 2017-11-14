@@ -53,13 +53,6 @@ Style/Documentation:
     - 'src/lib/ydocker/main_dialog.rb'
     - 'src/lib/ydocker/run_image_dialog.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-# SupportedStyles: use_perl_names, use_english_names
-Style/SpecialGlobalVars:
-  EnforcedStyle: use_perl_names
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
