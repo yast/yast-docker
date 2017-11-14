@@ -179,10 +179,10 @@ module YDocker
       end
 
       repo += selected_name
-      options = { 'repo' => repo }
-      options['tag'] = selected_tag if selected_tag
-      options['m'] = message if message
-      options['author'] = author if author
+      options = { "repo" => repo }
+      options["tag"] = selected_tag if selected_tag
+      options["m"] = message if message
+      options["author"] = author if author
 
       Yast::Builtins.y2milestone(
         "Going to commit new image using the following options: #{options.inspect}"

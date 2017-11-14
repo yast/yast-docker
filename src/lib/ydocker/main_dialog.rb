@@ -258,8 +258,8 @@ module YDocker
       images = Docker::Image.all
       ret = []
       images.map do |image|
-        repotags = image.info['RepoTags']
-        repotags = [':<none>'] if repotags.nil?
+        repotags = image.info["RepoTags"]
+        repotags = [":<none>"] if repotags.nil?
         repotags.each do |repotag|
           repository, tag = repotag.split(":", 2)
           ret << Item(
@@ -316,7 +316,7 @@ module YDocker
       image, label = selected_image
       return unless Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label)
 
-      if label == '<none>:<none>'
+      if label == "<none>:<none>"
         image.remove
       else
         image.connection.delete("/images/#{label}", {})
