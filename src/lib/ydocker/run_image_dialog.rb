@@ -168,7 +168,7 @@ module YDocker
 
       Yast::UI.OpenDialog(
         VBox(
-          InputField(Id(:target), _("Choose target directory"),""),
+          InputField(Id(:target), _("Choose target directory"), ""),
           ending_buttons
         )
       )

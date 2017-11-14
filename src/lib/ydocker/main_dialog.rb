@@ -244,7 +244,7 @@ module YDocker
       containers.map do |container|
         Item(
           Id(container.id),
-          container.id.slice(0,12),
+          container.id.slice(0, 12),
           container.info["Image"],
           container.info["Command"],
           DateTime.strptime(container.info["Created"].to_s, "%s").to_s,
