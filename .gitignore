@@ -1,4 +1,5 @@
-package/*.tar.*
-.yardoc/
+coverage/
 doc/autodocs
+package/*.tar.*
 *.pot
+.yardoc/

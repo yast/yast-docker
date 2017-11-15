@@ -1,6 +1,7 @@
 # YaST Docker Module
 
 [![Build Status](https://travis-ci.org/yast/yast-docker.svg?branch=master)](https://travis-ci.org/yast/yast-docker)
+[![Coverage Status](https://coveralls.io/repos/github/yast/yast-docker/badge.svg?branch=master)](https://coveralls.io/github/yast/yast-docker?branch=master)
 
 This module provides access to a Docker daemon running on the server.
 
