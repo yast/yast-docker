@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Nov 17 12:33:34 UTC 2017 - enavarro@suse.com
+
+- Release 4.0.0
+- Fix listing docker images without any tag (bsc#1068688).
+
+-------------------------------------------------------------------
 Thu Aug 10 16:01:27 UTC 2017 - ancor@suse.com
 
 - Use yast2-storage-ng instead of yast2-storage to display the
@@ -71,5 +77,5 @@ Thu Dec  4 09:50:07 UTC 2014 - jreidinger@suse.com
 -------------------------------------------------------------------
 Mon Sep 22 09:05:01 UTC 2014 - jreidinger@suse.com
 
-- initial package 
+- initial package
 
