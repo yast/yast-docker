@@ -16,7 +16,6 @@
 #  To contact Novell about this file by physical or electronic mail,
 #  you may find current contact information at www.suse.com
 
-
 require "docker"
 require "shellwords"
 require "yast"
@@ -54,7 +53,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         case input
         when :ok
@@ -70,7 +69,7 @@ module YDocker
           add_port
         when :run_cmd
           update_ok_button
-         when :remove_port
+        when :remove_port
           remove_port
         else
           raise "Unknown action #{input}"
@@ -115,7 +114,6 @@ module YDocker
         )
       )
     end
-
 
     def contents
       VBox(
@@ -170,7 +168,7 @@ module YDocker
 
       Yast::UI.OpenDialog(
         VBox(
-          InputField(Id(:target), _("Choose target directory"),""),
+          InputField(Id(:target), _("Choose target directory"), ""),
           ending_buttons
         )
       )
@@ -178,7 +176,7 @@ module YDocker
       if Yast::UI.UserInput == :cancel
         Yast::UI.CloseDialog
       else
-        @volumes << { :source => dir, :target => Yast::UI.QueryWidget(:target, :Value) }
+        @volumes << { source: dir, target: Yast::UI.QueryWidget(:target, :Value) }
 
         Yast::UI.CloseDialog
 
@@ -207,8 +205,8 @@ module YDocker
         Yast::UI.CloseDialog
       else
         @ports << {
-          :external => Yast::UI.QueryWidget(:external, :Value),
-          :internal => Yast::UI.QueryWidget(:internal, :Value)
+          external: Yast::UI.QueryWidget(:external, :Value),
+          internal: Yast::UI.QueryWidget(:internal, :Value)
         }
 
         Yast::UI.CloseDialog
@@ -228,31 +226,28 @@ module YDocker
     def port_bindings
       bindings = {}
       @ports.each do |mapping|
-        bindings["#{mapping[:internal]}/tcp"] = [{"HostPort" => mapping[:external]}]
+        bindings["#{mapping[:internal]}/tcp"] = [{ "HostPort" => mapping[:external] }]
       end
       bindings
     end
 
     def run_container
-        command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-        container = Docker::Container.create(opts={'Image' => @image.id, "Cmd" => command})
-        options = {}
+      command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
+      container = Docker::Container.create("Image" => @image.id, "Cmd" => command)
+      options = {}
 
-        if !@volumes.empty?
-          options['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
-        end
+      if !@volumes.empty?
+        options["Binds"] = @volumes.map { |mapping| "#{mapping[:source]}:#{mapping[:target]}" }
+      end
 
-        if !@ports.empty?
-          options['PortBindings'] = port_bindings
-        end
+      options["PortBindings"] = port_bindings if !@ports.empty?
 
-        container.start!(options)
+      container.start!(options)
     end
 
     def update_ok_button
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
       Yast::UI.ChangeWidget(:ok, :Enabled, !command.empty?)
     end
-
   end
 end

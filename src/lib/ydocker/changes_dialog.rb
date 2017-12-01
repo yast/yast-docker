@@ -48,7 +48,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         case input
         when :ok, :cancel
@@ -71,7 +71,6 @@ module YDocker
       Heading(_("Changes in Container"))
     end
 
-
     def changes_table
       Table(
         Id(:changes_table),
@@ -83,16 +82,15 @@ module YDocker
       )
     end
 
-    STATUS_MAPPING = { # TODO translation
-      0 => ("Modified"),
-      1 => ("Created"),
-      2 => ("Deleted")
-    }
+    STATUS_MAPPING = { # TODO: translation
+      0 => "Modified",
+      1 => "Created",
+      2 => "Deleted"
+    }.freeze
 
     def changes_items
       changes = @container.changes
       changes.reject! do |change|
-        path = change["Path"]
         changes.any? do |change2|
           change["Path"] != change2["Path"] && change2["Path"].start_with?(change["Path"])
         end
@@ -101,7 +99,7 @@ module YDocker
       changes.map do |change|
         Item(
           change["Path"],
-          ((STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s)
+          (STATUS_MAPPING[change["Kind"]] || change["Kind"]).to_s
         )
       end
     end
@@ -109,6 +107,5 @@ module YDocker
     def ending_buttons
       PushButton(Id(:ok), _("&Exit"))
     end
-
   end
 end

@@ -36,7 +36,7 @@ module YDocker
       Yast.import "Popup"
       Yast.import "Service"
 
-      dialog = self.new
+      dialog = new
       dialog.run
     end
 
@@ -45,7 +45,6 @@ module YDocker
     end
 
     def run
-
       return unless create_dialog
 
       begin
@@ -56,6 +55,7 @@ module YDocker
     end
 
   private
+
     DEFAULT_SIZE_OPT = Yast::Term.new(:opt, :defaultsize)
 
     def create_dialog
@@ -71,11 +71,14 @@ module YDocker
 
       # Only root can start process
       if Process::UID.rid == 0
-        return false unless Yast::Popup.YesNo(_("Docker service does not run. Should YaST start docker? Otherwise YaST quits."))
+        return false unless Yast::Popup.YesNo(
+          _("Docker service does not run. Should YaST start docker? Otherwise YaST quits.")
+        )
 
         return Yast::Service.start("docker")
       else
-        Yast::Popup.Error(_("Docker service does not run. Run this module as root or start docker service manually."))
+        Yast::Popup.Error(_("Docker service does not run. \
+Run this module as root or start docker service manually."))
         return false
       end
     end
@@ -85,7 +88,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         handle_docker_exceptions do
           case input
@@ -134,11 +137,13 @@ module YDocker
       @current_tab = :containers
     end
 
-    def handle_docker_exceptions(&block)
+    def handle_docker_exceptions
       yield
     rescue Docker::Error::DockerError => e
       log.error "Docker exception #{e.inspect}"
-      Yast::Popup.Error(_("Communication with docker failed with error: %s. Please try again.") % e.to_s)
+      Yast::Popup.Error(
+        _("Communication with docker failed with error: %s. Please try again.") % e.to_s
+      )
       @current_tab == :images ? redraw_images : redraw_containers
     end
 
@@ -149,18 +154,18 @@ module YDocker
     end
 
     def stop_container
-      return unless (Yast::Popup.YesNo(_("Do you really want to stop the running container?")))
+      return unless Yast::Popup.YesNo(_("Do you really want to stop the running container?"))
       selected_container.stop!
-      return unless (Yast::Popup.YesNo(_("Do you want to remove the container?")))
+      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
       selected_container.delete
 
       redraw_containers
     end
 
     def kill_container
-      return unless (Yast::Popup.YesNo(_("Do you really want to kill the running container?")))
+      return unless Yast::Popup.YesNo(_("Do you really want to kill the running container?"))
       selected_container.kill!
-      return unless (Yast::Popup.YesNo(_("Do you want to remove the container?")))
+      return unless Yast::Popup.YesNo(_("Do you want to remove the container?"))
       selected_container.delete
 
       redraw_containers
@@ -220,7 +225,7 @@ module YDocker
           _("Created"),
           _("Virtual Size")
         ),
-       images_items
+        images_items
       )
     end
 
@@ -244,12 +249,14 @@ module YDocker
       containers.map do |container|
         Item(
           Id(container.id),
-          container.id.slice(0,12),
+          container.id.slice(0, 12),
           container.info["Image"],
           container.info["Command"],
           DateTime.strptime(container.info["Created"].to_s, "%s").to_s,
           container.info["Status"],
-          container.info["Ports"].map {|p| "#{p["IP"]}:#{p["PublicPort"]}->#{p["PrivatePort"]}/#{p["Type"]}" }.join(",")
+          container.info["Ports"].map do |p|
+            "#{p["IP"]}:#{p["PublicPort"]}->#{p["PrivatePort"]}/#{p["Type"]}"
+          end.join(",")
         )
       end
     end
@@ -258,12 +265,12 @@ module YDocker
       images = Docker::Image.all
       ret = []
       images.map do |image|
-        repotags = image.info['RepoTags']
-        repotags = [':<none>'] if repotags.nil?
+        repotags = image.info["RepoTags"]
+        repotags = [":<none>"] if repotags.nil?
         repotags.each do |repotag|
           repository, tag = repotag.split(":", 2)
           ret << Item(
-            Id({:id => image.id, :label => repotag}),
+            Id(id: image.id, label: repotag),
             repository,
             tag,
             image.id.slice(0, 12),
@@ -314,9 +321,9 @@ module YDocker
 
     def image_delete
       image, label = selected_image
-      return unless (Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label))
+      return unless Yast::Popup.YesNo(_("Do you really want to delete image \"%s\"?") % label)
 
-      if label == '<none>:<none>'
+      if label == "<none>:<none>"
         image.remove
       else
         image.connection.delete("/images/#{label}", {})
@@ -334,10 +341,10 @@ module YDocker
 
     def update_containers_buttons
       is_something_selected = !Yast::UI.QueryWidget(:containers_table, :SelectedItems).empty?
-      [:container_inject, :container_changes, :container_stop, :container_kill, :container_commit].each do |item|
+      [:container_inject, :container_changes, :container_stop, :container_kill,
+       :container_commit].each do |item|
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
     end
-
   end
 end

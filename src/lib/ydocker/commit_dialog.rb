@@ -49,7 +49,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         case input
         when :ok
@@ -80,7 +80,6 @@ module YDocker
     def headings
       Heading(_("Commit Container"))
     end
-
 
     def contents
       VBox(
@@ -117,7 +116,7 @@ module YDocker
     def images
       return @images if @images
 
-      @images = Hash.new {|h, k| h[k] = Hash.new {|h2, k2| h2[k2] = []} }
+      @images = Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = [] } }
       Docker::Image.all.each do |image|
         image.info["RepoTags"].each do |repo_tag|
           matches = repo_tag.match(/\A(?:([^\/]+)\/)?([^:]+)(?::(.+))?\z/)
@@ -134,7 +133,7 @@ module YDocker
     def available_repositories
       keys = images.keys
       keys.delete("")
-      repos = keys.map{|repo_name| Item(Id(repo_name), repo_name) }
+      repos = keys.map { |repo_name| Item(Id(repo_name), repo_name) }
       repos << Item(Id(""), "", true)
     end
 
@@ -142,7 +141,7 @@ module YDocker
       selected = Yast::UI.QueryWidget(:repository, :Value)
       if images[selected]
         keys = images[selected].keys
-        images = keys.map{|image_name| Item(Id(image_name), image_name) }
+        keys.map { |image_name| Item(Id(image_name), image_name) }
       else
         [Item(Id(""), "", true)]
       end
@@ -180,10 +179,10 @@ module YDocker
       end
 
       repo += selected_name
-      options = { 'repo' => repo }
-      options['tag'] = selected_tag if selected_tag
-      options['m'] = message if message
-      options['author'] = author if author
+      options = { "repo" => repo }
+      options["tag"] = selected_tag if selected_tag
+      options["m"] = message if message
+      options["author"] = author if author
 
       Yast::Builtins.y2milestone(
         "Going to commit new image using the following options: #{options.inspect}"
@@ -191,6 +190,5 @@ module YDocker
 
       @container.commit(options)
     end
-
   end
 end

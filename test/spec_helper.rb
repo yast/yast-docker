@@ -19,7 +19,7 @@
 # current contact information at www.suse.com.
 # ------------------------------------------------------------------------------
 
-$:.unshift(File.expand_path("../../src/lib", __FILE__))
+$LOAD_PATH.unshift(File.expand_path("../../src/lib", __FILE__))
 
 if ENV["COVERAGE"]
   require "simplecov"

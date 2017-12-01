@@ -49,7 +49,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         case input
         when :ok
@@ -75,7 +75,6 @@ module YDocker
       Heading(_("Inject Shell"))
     end
 
-
     def contents
       VBox(
         ComboBox(
@@ -94,24 +93,26 @@ module YDocker
       )
     end
 
-    SHELLS = [ "bash", "sh", "zsh", "csh" ]
+    SHELLS = ["bash", "sh", "zsh", "csh"].freeze
     def proposed_shells
-      SHELLS.map{|shell| Item(Id(shell), shell) }
+      SHELLS.map { |shell| Item(Id(shell), shell) }
     end
 
     def attach
       selected_shell = Yast::UI.QueryWidget(:shell, :Value)
 
       if Yast::UI.TextMode
-        Yast::UI.RunInTerminal("docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1")
+        Yast::UI.RunInTerminal(
+          "docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1"
+        )
       else
-        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
-        if $?.exitstatus != 0
-          Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { :error => res })
+        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} \
+          || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
+        if $CHILD_STATUS.exitstatus != 0
+          Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { error: res })
           return
         end
       end
     end
-
   end
 end
