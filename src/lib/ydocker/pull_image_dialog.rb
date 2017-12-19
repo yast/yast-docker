@@ -16,7 +16,6 @@
 #  To contact Novell about this file by physical or electronic mail,
 #  you may find current contact information at www.suse.com
 
-
 require "docker"
 require "yast"
 
@@ -49,7 +48,7 @@ module YDocker
     end
 
     def controller_loop
-      while true do
+      loop do
         input = Yast::UI.UserInput
         case input
         when :ok
@@ -78,7 +77,6 @@ module YDocker
       Heading(_("Pull Image"))
     end
 
-
     def contents
       VBox(
         InputField(
@@ -99,7 +97,7 @@ module YDocker
     def pull_image
       image_source = Yast::UI.QueryWidget(:image_source, :Value)
       Yast::UI.ChangeWidget(:dialog_content, :Enabled, false)
-      Docker::Image.create('fromImage' => image_source)
+      Docker::Image.create("fromImage" => image_source)
     end
 
     def update_ok_button

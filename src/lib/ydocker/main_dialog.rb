@@ -263,7 +263,7 @@ Run this module as root or start docker service manually."))
     end
 
     def containers_items
-      containers = Docker::Container.all(:all => true)
+      containers = Docker::Container.all(all: true)
       containers.map do |container|
         Item(
           Id(container.id),
@@ -365,7 +365,7 @@ Run this module as root or start docker service manually."))
         Yast::UI.ChangeWidget(item, :Enabled, is_something_selected)
       end
       if is_something_selected
-        running = selected_container.info['State']['Status'] == 'running'
+        running = selected_container.info["State"]["Status"] == "running"
         Yast::UI.ChangeWidget(:container_start, :Enabled, !running)
         Yast::UI.ChangeWidget(:container_changes, :Enabled, running)
         Yast::UI.ChangeWidget(:container_inject, :Enabled, running)
@@ -377,7 +377,9 @@ Run this module as root or start docker service manually."))
       if selected_container.changes
         ChangesDialog.new(selected_container).run
       else
-        Yast::Popup.Warning(_("Changes where not found for container. Probably the container is stopped."))
+        Yast::Popup.Warning(
+          "Changes where not found for container. Probably the container is stopped."
+        )
         redraw_containers
       end
     end

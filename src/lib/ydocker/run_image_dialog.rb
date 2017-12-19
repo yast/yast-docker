@@ -30,15 +30,15 @@ module YDocker
       textdomain "docker"
       @image = image
 
-      config_command = @image.json['Config']['Cmd']
+      config_command = @image.json["Config"]["Cmd"]
       @run_cmd =
         case config_command
         when String
           config_command
         when Array
-          config_command.join(' ')
+          config_command.join(" ")
         else
-          ''
+          ""
         end
       @volumes = []
       @ports = []
@@ -125,31 +125,18 @@ module YDocker
 
     def contents
       VBox(
-        Left(InputField(
-          Id(:name),
-          _("Name")
-        )),
-        Left(InputField(
-          Id(:hostname),
-          _("Hostname")
-        )),
-        Left(InputField(
-          Id(:link),
-          _("Link")
-        )),
-        frame_table_with_buttons(_("Volumes"), Header(_("Host"), _("Container")), :volumes_table, "volume"),
-        Left(InputField(
-          Id(:volumes_from),
-          _("Volumes from")
-        )),
-        frame_table_with_buttons(_("Ports"), Header(_("External"), _("Internal"), _("Protocol")), :ports_table, "port"),
+        Left(InputField(Id(:name), _("Name"))),
+        Left(InputField(Id(:hostname), _("Hostname"))),
+        Left(InputField(Id(:link), _("Link"))),
+        frame_table_with_buttons(_("Volumes"),
+          Header(_("Host"), _("Container")),
+          :volumes_table, "volume"),
+        Left(InputField(Id(:volumes_from), _("Volumes from"))),
+        frame_table_with_buttons(_("Ports"),
+          Header(_("External"), _("Internal"), _("Protocol")),
+          :ports_table, "port"),
         Left(CheckBox(Id(:privileged), _("Privileged"), false)),
-        Left(InputField(
-          Id(:run_cmd),
-          Opt(:notify),
-          _("Command"),
-          @run_cmd
-        ))
+        Left(InputField(Id(:run_cmd), Opt(:notify), _("Command"), @run_cmd))
       )
     end
 
@@ -234,9 +221,9 @@ module YDocker
         Yast::UI.CloseDialog
       else
         @ports << {
-          :external => Yast::UI.QueryWidget(:external, :Value),
-          :internal => Yast::UI.QueryWidget(:internal, :Value),
-          :protocol => Yast::UI.QueryWidget(:protocol, :Value)
+          external: Yast::UI.QueryWidget(:external, :Value),
+          internal: Yast::UI.QueryWidget(:internal, :Value),
+          protocol: Yast::UI.QueryWidget(:protocol, :Value)
         }
 
         Yast::UI.CloseDialog
@@ -256,39 +243,32 @@ module YDocker
     def port_bindings
       bindings = {}
       @ports.each do |mapping|
-        bindings["#{mapping[:internal]}/#{mapping[:protocol]}"] = [{"HostPort" => mapping[:external]}]
+        bindings["#{mapping[:internal]}/#{mapping[:protocol]}"] =
+          [{ "HostPort" => mapping[:external] }]
       end
       bindings
     end
 
     def run_container
       command = Shellwords.shellsplit(Yast::UI.QueryWidget(:run_cmd, :Value))
-      options = {'Image' => @image.id, 'Cmd' => command, 'HostConfig' => {}}
+      options = { "Image" => @image.id, "Cmd" => command, "HostConfig" => {} }
 
       name = Yast::UI.QueryWidget(:name, :Value)
       hostname = Yast::UI.QueryWidget(:hostname, :Value)
       link = Yast::UI.QueryWidget(:link, :Value)
       volumes_from = Yast::UI.QueryWidget(:volumes_from, :Value)
 
-      if !name.empty?
-        options['name'] = name
-      end
-      if !hostname.empty?
-        options['Hostname'] = hostname
-      end
-      if !link.empty?
-        options['HostConfig']['Links'] = [link]
-      end
-      if !volumes_from.empty?
-        options['HostConfig']['VolumesFrom'] = [volumes_from]
-      end
+      options["name"] = name unless name.empty?
+      options["Hostname"] = hostname unless hostname.empty?
+      options["HostConfig"]["Links"] = [link] unless link.empty?
+      options["HostConfig"]["VolumesFrom"] = [volumes_from] unless volumes_from.empty?
       if !@volumes.empty?
-        options['HostConfig']['Binds'] = @volumes.map{|mapping| "#{mapping[:source]}:#{mapping[:target]}"}
+        options["HostConfig"]["Binds"] = @volumes.map do |mapping|
+          "#{mapping[:source]}:#{mapping[:target]}"
+        end
       end
-      if !@ports.empty?
-        options['HostConfig']['PortBindings'] = port_bindings
-      end
-      options['Privileged'] = Yast::UI.QueryWidget(:privileged, :Value)
+      options["HostConfig"]["PortBindings"] = port_bindings unless @ports.empty?
+      options["Privileged"] = Yast::UI.QueryWidget(:privileged, :Value)
 
       container = Docker::Container.create(options)
       container.start!
