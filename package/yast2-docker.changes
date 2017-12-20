@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Dec 20 10:29:04 UTC 2017 - dimstar@opensuse.org
+
+- Add ExcludeArch: %ix86 s390 ppc: do not build yast2-docker on
+  archs where docker is not provided (boo#1073650).
+
+-------------------------------------------------------------------
 Fri Nov 17 12:33:34 UTC 2017 - enavarro@suse.com
 
 - Release 4.0.0
