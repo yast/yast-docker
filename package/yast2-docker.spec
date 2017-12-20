@@ -27,6 +27,8 @@ Name:           yast2-docker
 Version:        4.0.0
 Release:        0
 BuildArch:      noarch
+# ExcludeArch in sync with docker.spec
+ExcludeArch:    %ix86 s390 ppc
 
 BuildRoot:      %{_tmppath}/%{name}-build
 Source0:        %{name}-%{version}.tar.bz2
