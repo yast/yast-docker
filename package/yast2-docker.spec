@@ -24,7 +24,7 @@
 ######################################################################
 
 Name:           yast2-docker
-Version:        4.0.0
+Version:        4.1.0
 Release:        0
 BuildArch:      noarch
 # ExcludeArch in sync with docker.spec

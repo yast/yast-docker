@@ -112,6 +112,10 @@ Run this module as root or start docker service manually."))
             switch_to_images
           when :containers
             switch_to_containers
+          when :prune
+            switch_to_prune
+          when :prune_ok
+            prune_action
           when :image_delete
             image_delete
           when :images_table
@@ -137,6 +141,11 @@ Run this module as root or start docker service manually."))
       @current_tab = :containers
     end
 
+    def switch_to_prune
+      Yast::UI::ReplaceWidget(:tabContent, prune_page)
+      @current_tab = :prune
+    end
+
     def handle_docker_exceptions
       yield
     rescue Docker::Error::DockerError => e
@@ -145,6 +154,18 @@ Run this module as root or start docker service manually."))
         _("Communication with docker failed with error: %s. Please try again.") % e.to_s
       )
       @current_tab == :images ? redraw_images : redraw_containers
+    end
+
+    def prune_action
+      prune_operation = Yast::UI.QueryWidget(Id(:prune_operation), :Value)
+      return unless Yast::Popup.YesNo(_("Do you want to prune the %s?") % prune_operation)
+      commands = {
+        "Containers" => "docker container prune -f",
+        "Volumes"    => "docker volume prune -f",
+        "System"     => "docker system prune -f"
+      }
+      result = `#{commands[prune_operation]}`
+      Yast::Popup.Notify(_(result))
     end
 
     def selected_container
@@ -176,7 +197,8 @@ Run this module as root or start docker service manually."))
         DumbTab(
           [
             Item(Id(:images), _("&Images"), true),
-            Item(Id(:containers), _("&Containers"))
+            Item(Id(:containers), _("&Containers")),
+            Item(Id(:prune), _("&Prune")),
           ],
           ReplacePoint(Id(:tabContent), images_page)
         ),
@@ -200,6 +222,22 @@ Run this module as root or start docker service manually."))
         HBox(
           containers_table,
           action_buttons_containers
+        )
+      )
+    end
+
+    def prune_page
+      VBox(
+        VBox(
+          Heading(_("Prune operations")),
+          Frame(
+            _("Docker Cleanup"),
+            Left(HBox(
+              Label("Prune: "),
+              ComboBox(Id(:prune_operation), "", ["Containers", "Volumes", "System"]),
+              PushButton(Id(:prune_ok), _("&OK"))
+            ))
+          )
         )
       )
     end

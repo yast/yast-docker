@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Apr 12 23:27:04 UTC 2018 - crojasaragonez@hotmail.com
+
+- Prune Containers, Volumes and System
+
+-------------------------------------------------------------------
 Wed Dec 20 10:29:04 UTC 2017 - dimstar@opensuse.org
 
 - Add ExcludeArch: %ix86 s390 ppc: do not build yast2-docker on
