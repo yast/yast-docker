@@ -198,7 +198,7 @@ Run this module as root or start docker service manually."))
           [
             Item(Id(:images), _("&Images"), true),
             Item(Id(:containers), _("&Containers")),
-            Item(Id(:prune), _("&Prune")),
+            Item(Id(:prune), _("&Prune"))
           ],
           ReplacePoint(Id(:tabContent), images_page)
         ),
@@ -232,11 +232,13 @@ Run this module as root or start docker service manually."))
           Heading(_("Prune operations")),
           Frame(
             _("Docker Cleanup"),
-            Left(HBox(
-              Label("Prune: "),
-              ComboBox(Id(:prune_operation), "", ["Containers", "Volumes", "System"]),
-              PushButton(Id(:prune_ok), _("&OK"))
-            ))
+            Left(
+              HBox(
+                Label("Prune: "),
+                ComboBox(Id(:prune_operation), "", ["Containers", "Volumes", "System"]),
+                PushButton(Id(:prune_ok), _("&OK"))
+              )
+            )
           )
         )
       )
