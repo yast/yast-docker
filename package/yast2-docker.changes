@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Nov 25 12:47:41 UTC 2018 - Stasiek Michalski <hellcp@mailbox.org>
+
+- Provide icon with module (boo#1109310)
+- 4.1.0
+
+-------------------------------------------------------------------
 Wed Dec 20 10:29:04 UTC 2017 - dimstar@opensuse.org
 
 - Add ExcludeArch: %ix86 s390 ppc: do not build yast2-docker on

@@ -19,12 +19,12 @@
 ######################################################################
 #
 # IMPORTANT: Please do not change spec file in build service directly
-#            Use https://github.com/yast/yast-cio repo
+#            Use https://github.com/yast/yast-docker repo
 #
 ######################################################################
 
 Name:           yast2-docker
-Version:        4.0.0
+Version:        4.1.0
 Release:        0
 BuildArch:      noarch
 # ExcludeArch in sync with docker.spec
@@ -72,6 +72,7 @@ rake install DESTDIR="%{buildroot}"
 %{yast_dir}/clients/*.rb
 %{yast_dir}/lib/ydocker
 %{yast_desktopdir}/docker-config.desktop
+%{_datadir}/icons/*
 
 %doc COPYING
 %doc README.md
