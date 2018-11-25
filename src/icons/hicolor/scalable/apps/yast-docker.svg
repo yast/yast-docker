@@ -1,225 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   height="128"
-   width="128"
-   version="1.1"
-   viewBox="0 0 128 128"
-   id="svg20">
-  <defs
-     id="defs24" />
-  <metadata
-     id="metadata2">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:creator>
-          <cc:Agent>
-            <dc:title>Jakub Steiner</dc:title>
-          </cc:Agent>
-        </dc:creator>
-        <dc:source>http://jimmac.musichall.cz</dc:source>
-        <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-sa/2.0/" />
-        <dc:title></dc:title>
-        <dc:subject>
-          <rdf:Bag>
-            <rdf:li>apparmor</rdf:li>
-            <rdf:li>novell</rdf:li>
-          </rdf:Bag>
-        </dc:subject>
-      </cc:Work>
-      <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-sa/2.0/">
-        <cc:permits
-           rdf:resource="http://web.resource.org/cc/Reproduction" />
-        <cc:permits
-           rdf:resource="http://web.resource.org/cc/Distribution" />
-        <cc:requires
-           rdf:resource="http://web.resource.org/cc/Notice" />
-        <cc:requires
-           rdf:resource="http://web.resource.org/cc/Attribution" />
-        <cc:permits
-           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
-        <cc:requires
-           rdf:resource="http://web.resource.org/cc/ShareAlike" />
-      </cc:License>
-    </rdf:RDF>
-  </metadata>
-  <path
-     style="fill:#5e5c64;stroke-width:2"
-     id="path4"
-     d="m 32,96 c -2.216,0 -4,1.98222 -4,4.4444 v 11.1112 C 28,114.0178 29.784,116 32,116 h 64 c 2.216,0 4,-1.98222 4,-4.4444 V 100.4444 C 100,97.9822 98.216,96 96,96 Z" />
-  <path
-     style="fill:#9a9996;stroke-width:2"
-     id="path6"
-     d="m 32,92 c -2.216,0 -4,1.98222 -4,4.4444 v 11.1112 C 28,110.0178 29.784,112 32,112 h 64 c 2.216,0 4,-1.98222 4,-4.4444 V 96.4444 C 100,93.9822 98.216,92 96,92 Z" />
-  <path
-     style="fill:#5e5c64;stroke-width:2"
-     id="path8"
-     d="m 12,20 c -2.216,0 -4,1.82974 -4,4.1026 v 71.794 c 0,2.2728 1.784,4.1026 4,4.1026 h 104 c 2.216,0 4,-1.82974 4,-4.1026 V 24.1026 C 120,21.8298 118.216,20 116,20 Z" />
-  <path
-     style="fill:#9a9996;stroke-width:2"
-     id="path10"
-     d="m 12,16 c -2.216,0 -4,1.784 -4,4 v 72 c 0,2.216 1.784,4 4,4 h 104 c 2.216,0 4,-1.784 4,-4 V 20 c 0,-2.216 -1.784,-4 -4,-4 z" />
-  <rect
-     style="fill:#3d3846;stroke-width:2"
-     id="rect12"
-     ry="0"
-     height="72"
-     width="104"
-     y="20"
-     x="12" />
-  <rect
-     style="fill:#f6f5f4;stroke-width:2"
-     id="rect14"
-     ry="0"
-     height="64"
-     width="96"
-     y="24"
-     x="16" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect836"
-     width="64"
-     height="32"
-     x="24"
-     y="44"
-     ry="14" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect838"
-     width="64"
-     height="24"
-     x="24"
-     y="60"
-     ry="0" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect840"
-     width="8"
-     height="12"
-     x="96"
-     y="64" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect844"
-     width="8"
-     height="8"
-     x="92"
-     y="56"
-     ry="4" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect846"
-     width="4"
-     height="8"
-     x="92"
-     y="56"
-     ry="0" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect848"
-     width="8"
-     height="4"
-     x="92"
-     y="60" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect844-3"
-     width="8"
-     height="8"
-     x="-108"
-     y="55.999996"
-     ry="4"
-     transform="scale(-1,1)" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect846-6"
-     width="4"
-     height="8"
-     x="-108"
-     y="55.999996"
-     ry="0"
-     transform="scale(-1,1)" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect848-7"
-     width="8"
-     height="4"
-     x="-108"
-     y="59.999996"
-     transform="scale(-1,1)" />
-  <circle
-     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="path871"
-     cx="36"
-     cy="64"
-     r="4" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect844-3-5"
-     width="8"
-     height="8"
-     x="96"
-     y="-84"
-     ry="4"
-     transform="scale(1,-1)" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect846-6-3"
-     width="4"
-     height="8"
-     x="96"
-     y="-84"
-     ry="0"
-     transform="scale(1,-1)" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect848-7-5"
-     width="8"
-     height="4"
-     x="96"
-     y="-80"
-     transform="scale(1,-1)" />
-  <rect
-     style="opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect894"
-     width="8"
-     height="8"
-     x="88"
-     y="76" />
-  <rect
-     style="opacity:1;fill:#98c1f1;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect903"
-     width="44"
-     height="12"
-     x="24"
-     y="72" />
-  <rect
-     style="opacity:1;fill:#f6d32d;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect905"
-     width="12"
-     height="12"
-     x="40"
-     y="32"
-     ry="0" />
-  <rect
-     style="opacity:1;fill:#f6d32d;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect907"
-     width="12"
-     height="12"
-     x="60"
-     y="32" />
-  <path
-     style="opacity:0.2;fill:#ffffff;stroke-width:2"
-     id="path16"
-     d="M 16,24 H 88 L 72,88 H 16 Z" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+<path d="m32 96c-2.216 0-4 1.9822-4 4.4444v11.111c0 2.4622 1.784 4.4444 4 4.4444h64c2.216 0 4-1.9822 4-4.4444v-11.111c0-2.4622-1.784-4.4444-4-4.4444z" fill="#5e5c64"/>
+<path d="m32 92c-2.216 0-4 1.9822-4 4.4444v11.111c0 2.4622 1.784 4.4444 4 4.4444h64c2.216 0 4-1.9822 4-4.4444v-11.111c0-2.4622-1.784-4.4444-4-4.4444z" fill="#9a9996"/>
+<path d="m12 20c-2.216 0-4 1.8297-4 4.1026v71.794c0 2.2728 1.784 4.1026 4 4.1026h104c2.216 0 4-1.8297 4-4.1026v-71.794c0-2.2728-1.784-4.1026-4-4.1026z" fill="#5e5c64"/>
+<path d="m12 16c-2.216 0-4 1.784-4 4v72c0 2.216 1.784 4 4 4h104c2.216 0 4-1.784 4-4v-72c0-2.216-1.784-4-4-4z" fill="#9a9996"/>
+<rect x="12" y="20" width="104" height="72" ry="0" fill="#3d3846"/>
+<rect x="16" y="24" width="96" height="64" ry="0" fill="#f6f5f4"/>
+<rect x="24" y="44" width="64" height="32" ry="14" fill="#3584e4"/>
+<rect x="24" y="60" width="64" height="24" ry="0" fill="#3584e4"/>
+<rect x="96" y="64" width="8" height="12" fill="#3584e4"/>
+<rect x="92" y="56" width="8" height="8" ry="4" fill="#3584e4"/>
+<rect x="92" y="56" width="4" height="8" ry="0" fill="#3584e4"/>
+<rect x="92" y="60" width="8" height="4" fill="#3584e4"/>
+<rect transform="scale(-1,1)" x="-108" y="56" width="8" height="8" ry="4" fill="#3584e4"/>
+<rect transform="scale(-1,1)" x="-108" y="56" width="4" height="8" ry="0" fill="#3584e4"/>
+<rect transform="scale(-1,1)" x="-108" y="60" width="8" height="4" fill="#3584e4"/>
+<circle cx="36" cy="64" r="4" fill="#fff"/>
+<rect transform="scale(1,-1)" x="96" y="-84" width="8" height="8" ry="4" fill="#3584e4"/>
+<rect transform="scale(1,-1)" x="96" y="-84" width="4" height="8" ry="0" fill="#3584e4"/>
+<rect transform="scale(1,-1)" x="96" y="-80" width="8" height="4" fill="#3584e4"/>
+<rect x="88" y="76" width="8" height="8" fill="#3584e4"/>
+<rect x="24" y="72" width="44" height="12" fill="#98c1f1"/>
+<rect x="40" y="32" width="12" height="12" ry="0" fill="#f6d32d"/>
+<rect x="60" y="32" width="12" height="12" fill="#f6d32d"/>
+<path d="m16 24h72l-16 64h-56z" fill="#fff" opacity=".2"/>
 </svg>
