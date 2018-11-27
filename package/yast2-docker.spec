@@ -72,7 +72,7 @@ rake install DESTDIR="%{buildroot}"
 %{yast_dir}/clients/*.rb
 %{yast_dir}/lib/ydocker
 %{yast_desktopdir}/docker-config.desktop
-%{_datadir}/icons/*
+%{yast_icondir}
 
 %doc COPYING
 %doc README.md
