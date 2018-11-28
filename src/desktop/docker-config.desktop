@@ -13,7 +13,7 @@ X-SuSE-YaST-Geometry=
 X-SuSE-YaST-SortKey=
 X-SuSE-YaST-AutoinstResource=
 
-Icon=yast-vm-install
+Icon=yast-docker
 Exec=/sbin/yast2 docker
 
 Name=Docker
