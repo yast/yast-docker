@@ -17,6 +17,7 @@
 #  you may find current contact information at www.suse.com
 
 require "yast"
+require "yast2/execute"
 require "shellwords"
 
 module YDocker
@@ -101,16 +102,24 @@ module YDocker
     def attach
       selected_shell = Yast::UI.QueryWidget(:shell, :Value)
 
+      docker_command = "docker exec -ti #{@container.id} %{shell}"
+
       if Yast::UI.TextMode
-        Yast::UI.RunInTerminal(
-          "docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} 2>&1"
-        )
+        command = format(docker_command, shell: Shellwords.escape(selected_shell))
+
+        Yast::UI.RunInTerminal(command + " 2>&1")
       else
-        res = `xterm -e 'docker exec -ti #{@container.id} #{Shellwords.escape selected_shell} \
-          || (echo "Failed to attach. Will close window in 5 seconds";sleep 5)' 2>&1`
-        if $CHILD_STATUS.exitstatus != 0
-          Yast::Popup.Error(_("Failed to run terminal. Error: %{error}") % { error: res })
-          return
+        begin
+          # Note that the selected shell is not escaped here. The whole command will
+          # be escaped by Yast::Execute
+          command = format(docker_command, shell: selected_shell) +
+            " || (echo \"Failed to attach. Will close window in 5 seconds\";sleep 5)"
+
+          Yast::Execute.locally!("xterm", "-e", command)
+        rescue Cheetah::ExecutionFailed => error
+          Yast::Popup.Error(
+            format(_("Failed to run terminal. Error: %{error}"), error: error.message)
+          )
         end
       end
     end
