@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -26,18 +26,12 @@
 Name:           yast2-docker
 Version:        4.1.1
 Release:        0
-BuildArch:      noarch
-# ExcludeArch in sync with docker.spec
-ExcludeArch:    %ix86 s390 ppc
+Summary:        YaST2 - GUI for docker management
+Group:          System/YaST
+License:        GPL-2.0 or GPL-3.0
+Url:            https://github.com/yast/yast-docker
 
-BuildRoot:      %{_tmppath}/%{name}-build
 Source0:        %{name}-%{version}.tar.bz2
-
-Requires:       yast2 >= 3.1.0
-Requires:       yast2-ruby-bindings >= 1.2.0
-Requires:       yast2-storage-ng
-Requires:       rubygem(%{rb_default_ruby_abi}:docker-api)
-Requires:       docker >= 1.3
 
 BuildRequires:  update-desktop-files
 BuildRequires:  yast2-devtools
@@ -50,29 +44,34 @@ BuildRequires:  rubygem(rspec)
 # for docker api
 BuildRequires:  rubygem(docker-api)
 
-Summary:        YaST2 - GUI for docker management
-Group:          System/YaST
-License:        GPL-2.0 or GPL-3.0
-Url:            https://github.com/yast/yast-docker
+Requires:       yast2 >= 3.1.0
+Requires:       yast2-ruby-bindings >= 1.2.0
+Requires:       yast2-storage-ng
+Requires:       rubygem(%{rb_default_ruby_abi}:docker-api)
+Requires:       docker >= 1.3
+
+BuildArch:      noarch
+# ExcludeArch in sync with docker.spec
+ExcludeArch:    %ix86 s390 ppc
 
 %description
 Provides easy to use GUI for running docker containers.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -q
 
 %check
-rake test:unit
+%yast_check
 
 %install
-rake install DESTDIR="%{buildroot}"
+%yast_install
+%yast_metainfo
 
 %files
-%defattr(-,root,root)
-%{yast_dir}/clients/*.rb
-%{yast_dir}/lib/ydocker
-%{yast_desktopdir}/docker-config.desktop
+%{yast_clientdir}
+%{yast_libdir}
+%{yast_desktopdir}
+%{yast_metainfodir}
 %{yast_icondir}
-
-%doc COPYING
+%license COPYING
 %doc README.md
