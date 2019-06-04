@@ -16,8 +16,9 @@ X-SuSE-YaST-AutoinstResource=
 Icon=yast-docker
 Exec=/sbin/yast2 docker
 
-Name=Docker
+Name=YaST Docker
 GenericName=Docker
+Comment=Docker Configuration
 X-KDE-SubstituteUID=true
 StartupNotify=true
 
