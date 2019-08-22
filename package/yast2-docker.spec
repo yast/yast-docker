@@ -24,7 +24,7 @@
 ######################################################################
 
 Name:           yast2-docker
-Version:        4.2.0
+Version:        4.2.1
 Release:        0
 Summary:        YaST2 - GUI for docker management
 Group:          System/YaST
@@ -38,11 +38,11 @@ BuildRequires:  yast2-devtools >= 4.2.2
 BuildRequires:  yast2-ruby-bindings >= 1.2.0
 BuildRequires:  yast2 >= 3.0.5
 #for install task
-BuildRequires:  rubygem(yast-rake)
+BuildRequires:  rubygem(%{rb_default_ruby_abi}:yast-rake)
 # for tests
-BuildRequires:  rubygem(rspec)
+BuildRequires:  rubygem(%{rb_default_ruby_abi}:rspec)
 # for docker api
-BuildRequires:  rubygem(docker-api)
+BuildRequires:  rubygem(%{rb_default_ruby_abi}:docker-api)
 
 Requires:       yast2 >= 3.1.0
 Requires:       yast2-ruby-bindings >= 1.2.0
