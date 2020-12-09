@@ -1,7 +1,11 @@
 # YaST Docker Module
 
-[![Build Status](https://travis-ci.org/yast/yast-docker.svg?branch=master)](https://travis-ci.org/yast/yast-docker)
-[![Coverage Status](https://coveralls.io/repos/github/yast/yast-docker/badge.svg?branch=master)](https://coveralls.io/github/yast/yast-docker?branch=master)
+[![Workflow Status](https://github.com/yast/yast-docker/workflows/CI/badge.svg?branch=master)](
+https://github.com/yast/yast-docker/actions?query=branch%3Amaster)
+[![Jenkins Status](https://ci.opensuse.org/buildStatus/icon?job=yast-yast-docker-master)](
+https://ci.opensuse.org/view/Yast/job/yast-yast-docker-master/)
+[![Coverage Status](https://coveralls.io/repos/github/yast/yast-docker/badge.svg?branch=master)](
+https://coveralls.io/github/yast/yast-docker?branch=master)
 
 This module provides access to a Docker daemon running on the server.
 
