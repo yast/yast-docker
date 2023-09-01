@@ -24,7 +24,7 @@
 ######################################################################
 
 Name:           yast2-docker
-Version:        4.5.0
+Version:        4.6.0
 Release:        0
 Summary:        YaST2 - GUI for docker management
 Group:          System/YaST
